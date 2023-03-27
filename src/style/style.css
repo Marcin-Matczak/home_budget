@@ -1,0 +1,76 @@
+/* Global */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html, body { 
+  height: 100%; 
+}
+
+nav {
+  width: 100%;
+  height: 50px;
+  background-color: chartreuse;
+}
+
+main {
+  width: 1040px;
+  display: grid;
+  padding: 20px;
+  background-color: bisque;
+  grid-template-columns: repeat(5, 200px);
+  grid-template-rows: repeat(7, 100px); 
+  gap: 10px 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+}
+
+main > * {
+  border-radius: 5px;
+}
+
+header {
+  background-color: chocolate;
+  grid-column: 1/6;
+  grid-row: 0/2;
+}
+
+.movements {
+  background-color: aqua;
+  grid-column: 1/4;
+  grid-row: 2/8;
+
+}
+
+.transfer {
+  background-color: blueviolet;
+  grid-column: 4/6;
+  grid-row: 2/4;
+}
+
+.request {
+  background-color: burlywood;
+  grid-column: 4/6;
+  grid-row: 4/6;
+}
+
+.close {
+  background-color: gray;
+  grid-column: 4/6;
+  grid-row: 6/8;
+}
+
+footer {
+  width: 100%;
+  height: 50px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background-color: chartreuse;
+}
