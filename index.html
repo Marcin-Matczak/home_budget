@@ -9,14 +9,59 @@
     <title>Home Budget</title>
   </head>
   <body>
-    <nav></nav>
+    <nav>
+      <h1>Please Log In</h1>
+      <form class="login">
+        <input type="text" placeholder="user" />
+        <input type="password" placeholder="PIN" maxlength="4" />
+        <button>Log In</button>
+      </form>
+    </nav>
     <main>
-      <header></header>
+      <header>
+        <p>Current balance</p>
+        <p>As of <span>28.03.2023</span></p>
+        <p>2000€</p>
+      </header>
       <aside class="movements"></aside>
-      <section class="transfer"></section>
-      <section class="request"></section>
-      <section class="close"></section>
+      <section class="transfer">
+        <h2>Internal Coin Transfer</h2>
+        <form class="form">
+          <input type="text" />
+          <label>Transfer to</label>
+          <input type="number" />
+          <label>Amount</label>
+          <button>Send</button>
+        </form>
+      </section>
+      <section class="request">
+        <h2>Request loan</h2>
+        <form class="form">
+          <input type="text" />
+          <label>Amount</label>
+          <button>Send</button>
+        </form>
+      </section>
+      <section class="close">
+        <h2>Close account</h2>
+        <form class="form">
+          <input type="text" />
+          <label>User</label>
+          <input type="password" maxlength="4" />
+          <label>PIN</label>
+          <button>Send</button>
+        </form>
+      </section>
     </main>
-    <footer></footer>
+    <footer>
+      <div>
+        <p>In</p>
+        <p>300€</p>
+      </div>
+      <div>
+        <p>Out</p>
+        <p>100€</p>
+      </div>
+    </footer>
   </body>
 </html>
