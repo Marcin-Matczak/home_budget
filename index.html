@@ -11,36 +11,44 @@
   <body>
     <nav>
       <h1>Please Log In</h1>
-      <form class="login">
-        <input type="text" placeholder="user" />
-        <input type="password" placeholder="PIN" maxlength="4" />
-        <button>Log In</button>
-      </form>
+      <div class="form-login">
+        <form class="login">
+          <input type="text" placeholder="user" />
+          <input type="password" placeholder="PIN" maxlength="4" />
+          <button class="btn btn-log">Log In</button>
+        </form>
+      </div>
     </nav>
     <main>
       <header>
-        <p>Current balance</p>
-        <p>As of <span>28.03.2023</span></p>
-        <p>2000€</p>
+        <div>
+          <p>Current balance</p>
+          <p>As of <span>28.03.2023</span></p>
+        </div>
+        <p class="balance">2000€</p>
       </header>
       <aside class="movements"></aside>
       <section class="transfer">
         <h2>Internal Coin Transfer</h2>
-        <form class="form">
-          <input type="text" />
-          <label>Transfer to</label>
-          <input type="number" />
-          <label>Amount</label>
-          <button>Send</button>
-        </form>
+        <div class="form">
+          <form class="form">
+            <input type="text" />
+            <label>Transfer to</label>
+            <input type="number" />
+            <label>Amount</label>
+            <button class="btn btn-send btn-form">Send</button>
+          </form>
+        </div>
       </section>
       <section class="request">
         <h2>Request loan</h2>
-        <form class="form">
-          <input type="text" />
-          <label>Amount</label>
-          <button>Send</button>
-        </form>
+        <div class="form">
+          <form class="form">
+            <input type="text" />
+            <label>Amount</label>
+            <button class="btn btn-send btn-form">Send</button>
+          </form>
+        </div>
       </section>
       <section class="close">
         <h2>Close account</h2>
@@ -49,19 +57,19 @@
           <label>User</label>
           <input type="password" maxlength="4" />
           <label>PIN</label>
-          <button>Send</button>
+          <button class="btn btn-close btn-form">Close</button>
         </form>
       </section>
+      <footer>
+        <div>
+          <p>In</p>
+          <p>300€</p>
+        </div>
+        <div>
+          <p>Out</p>
+          <p>100€</p>
+        </div>
+      </footer>
     </main>
-    <footer>
-      <div>
-        <p>In</p>
-        <p>300€</p>
-      </div>
-      <div>
-        <p>Out</p>
-        <p>100€</p>
-      </div>
-    </footer>
   </body>
 </html>
