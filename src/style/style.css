@@ -60,6 +60,11 @@ main > * {
   padding: 10px 20px;
 }
 
+.visibility {
+  opacity: 0;
+  transition: all 1s;
+}
+
 /* Main content -- Header */
 
 header {
@@ -84,7 +89,7 @@ header {
 
 }
 
-/* Forms */
+/* Main content -- Forms */
 
 .transfer {
   background-color: rgb(192, 148, 233);
@@ -125,7 +130,7 @@ input {
 }
 
 
-/* Footer */
+/* Main content -- Footer */
 
 footer {
   grid-column: 1/6;

@@ -10,16 +10,21 @@
   </head>
   <body>
     <nav>
-      <h1>Please Log In</h1>
-      <div class="form-login">
+      <h1 class="welcome">Please Log In</h1>
+      <div>
         <form class="login">
-          <input type="text" placeholder="user" />
-          <input type="password" placeholder="PIN" maxlength="4" />
-          <button class="btn btn-log">Log In</button>
+          <input type="text" placeholder="user" class="login__user" />
+          <input
+            type="password"
+            placeholder="PIN"
+            maxlength="4"
+            class="login__password"
+          />
+          <button class="btn btn--log">Log In</button>
         </form>
       </div>
     </nav>
-    <main>
+    <main class="user-panel visibility">
       <header>
         <div>
           <p>Current balance</p>
