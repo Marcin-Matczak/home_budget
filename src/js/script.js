@@ -7,25 +7,26 @@ const loginButton = document.querySelector('.btn--log');
 const loginButtonDescription = document.querySelector('.LoginBtnType');
 const userPanel = document.querySelector('.user-panel');
 const balanceDate = document.querySelector('.date');
+const currentBalance = document.querySelector('.balance');
 
 // Accounts
 
 const account1 = {
   owner: 'Marcin Matczak',
   pin: 1202,
-  movements: [],
+  movements: [1000, 200, -400, 150, -300],
 };
 
 const account2 = {
   owner: 'Elliot Alderson',
   pin: 1709,
-  movements: [],
+  movements: [3000, -1000, 2500, -300, -450],
 };
 
 const account3 = {
   owner: 'John Doe',
   pin: 1996,
-  movements: [],
+  movements: [12000, 8000, -2000, 1500, -7600, 1050],
 };
 
 const accounts = [account1, account2, account3];
@@ -48,6 +49,7 @@ const welcomePanel = function () {
     loginButtonDescription.textContent = 'Out';
     inputUserNameLogin.disabled = inputPasswordLogin.disabled = true;
   }
+  balance(currentAccount);
 };
 
 const logOut = function () {
@@ -62,7 +64,16 @@ loginButton.addEventListener('click', function (event) {
   userPanel.classList.contains('visibility') ? welcomePanel() : logOut();
 });
 
-// Current Date
+// Current balacne section
 
 const date = new Intl.DateTimeFormat(navigator.language).format(new Date());
 balanceDate.textContent = date;
+
+const balance = function (account) {
+  const movements = account.movements;
+  const amount = movements.reduce((acc, mov) => acc + mov, movements[0]);
+  currentBalance.textContent = new Intl.NumberFormat(navigator.language, {
+    style: 'currency',
+    currency: 'PLN',
+  }).format(amount);
+};
