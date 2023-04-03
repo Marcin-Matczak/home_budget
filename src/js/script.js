@@ -8,6 +8,8 @@ const loginButtonDescription = document.querySelector('.LoginBtnType');
 const userPanel = document.querySelector('.user-panel');
 const balanceDate = document.querySelector('.date');
 const currentBalance = document.querySelector('.balance');
+const inSummary = document.querySelector('.inMovements');
+const outSummary = document.querySelector('.outMovements');
 
 // Accounts
 
@@ -50,6 +52,7 @@ const welcomePanel = function () {
     inputUserNameLogin.disabled = inputPasswordLogin.disabled = true;
   }
   balance(currentAccount);
+  transactionSummary(currentAccount);
 };
 
 const logOut = function () {
@@ -69,11 +72,33 @@ loginButton.addEventListener('click', function (event) {
 const date = new Intl.DateTimeFormat(navigator.language).format(new Date());
 balanceDate.textContent = date;
 
+const currFormat = function (container, value) {
+  container.textContent = new Intl.NumberFormat(navigator.language, {
+    style: 'currency',
+    currency: 'PLN',
+  }).format(value);
+};
+
 const balance = function (account) {
   const movements = account.movements;
   const amount = movements.reduce((acc, mov) => acc + mov, movements[0]);
-  currentBalance.textContent = new Intl.NumberFormat(navigator.language, {
-    style: 'currency',
-    currency: 'PLN',
-  }).format(amount);
+  currFormat(currentBalance, amount);
 };
+
+// In/Out - summary
+
+const transactionSummary = function (account) {
+  const inTransaction = account.movements
+    .filter(mov => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  currFormat(inSummary, inTransaction);
+
+  const outTransaction = account.movements
+    .filter(mov => mov < 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  currFormat(outSummary, outTransaction);
+};
+
+// Movements
+
+const displayMovements = 
