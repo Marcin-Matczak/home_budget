@@ -1,36 +1,62 @@
-const inputUsernameLogin = document.querySelector('.login__user');
+// Elements
+
+const inputUserNameLogin = document.querySelector('.login__user');
 const inputPasswordLogin = document.querySelector('.login__password');
 const welcomeInfo = document.querySelector('.welcome');
 const loginButton = document.querySelector('.btn--log');
+const loginButtonDescription = document.querySelector('.LoginBtnType');
 const userPanel = document.querySelector('.user-panel');
 
-const account = {
+// Accounts
+
+const account1 = {
   owner: 'Marcin Matczak',
   pin: 1202,
   movements: [],
 };
 
-const userInitials = function (accountObject) {
-  const user = accountObject.owner.toLocaleLowerCase();
-  const space = user.indexOf(' ');
-  const initial = user.slice(0, 1) + user.slice(space + 1, space + 2);
-  return initial;
+const account2 = {
+  owner: 'Elliot Alderson',
+  pin: 1709,
+  movements: [],
 };
 
-const welcomePanel = function (user, pin) {
-  if (user === userInitials(account) && pin === account.pin) {
+const account3 = {
+  owner: 'John Doe',
+  pin: 1996,
+  movements: [],
+};
+
+const accounts = [account1, account2, account3];
+
+// Login functionality
+
+const welcomePanel = function () {
+  const currentAccount = accounts.find(
+    acount =>
+      acount.owner.split(' ')[0].toLocaleLowerCase() ===
+      inputUserNameLogin.value
+  );
+  if (currentAccount?.pin === Number(inputPasswordLogin.value)) {
     userPanel.classList.remove('visibility');
-    const owner = account.owner;
-    const userName = owner.slice(0, owner.indexOf(' '));
-    welcomeInfo.textContent = `Welcome back, ${userName}`;
-    inputUsernameLogin.value = '';
-    inputPasswordLogin.value = '';
+    welcomeInfo.textContent = `Welcome back, ${
+      currentAccount.owner.split(' ')[0]
+    }`;
+    inputUserNameLogin.value = inputPasswordLogin.value = '';
+    inputPasswordLogin.blur();
+    loginButtonDescription.textContent = 'Out';
+    inputUserNameLogin.disabled = inputPasswordLogin.disabled = true;
   }
+};
+
+const logOut = function () {
+  userPanel.classList.add('visibility');
+  loginButtonDescription.textContent = 'In';
+  welcomeInfo.textContent = 'Please Log In';
+  inputUserNameLogin.disabled = inputPasswordLogin.disabled = false;
 };
 
 loginButton.addEventListener('click', function (event) {
   event.preventDefault();
-  const userName = inputUsernameLogin.value;
-  const userPin = Number(inputPasswordLogin.value);
-  if (userName && userPin) welcomePanel(userName, userPin);
+  userPanel.classList.contains('visibility') ? welcomePanel() : logOut();
 });
