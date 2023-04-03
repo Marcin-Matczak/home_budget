@@ -10,6 +10,8 @@ const balanceDate = document.querySelector('.date');
 const currentBalance = document.querySelector('.balance');
 const inSummary = document.querySelector('.inMovements');
 const outSummary = document.querySelector('.outMovements');
+const movementsContainer = document.querySelector('.movements_body');
+console.log(movementsContainer);
 
 // Accounts
 
@@ -28,7 +30,11 @@ const account2 = {
 const account3 = {
   owner: 'John Doe',
   pin: 1996,
-  movements: [12000, 8000, -2000, 1500, -7600, 1050],
+  movements: [
+    12000, 8000, -2000, 1500, -7600, 1050, -2000, -950, 200, 12000, 8000, -2000,
+    1500, -7600, 1050, -2000, -950, 200, 12000, 8000, -2000, 1500, -7600, 1050,
+    -2000, -950, 200, 12000, 8000, -2000, 1500, -7600, 1050, -2000, -950, 200,
+  ],
 };
 
 const accounts = [account1, account2, account3];
@@ -51,8 +57,9 @@ const welcomePanel = function () {
     loginButtonDescription.textContent = 'Out';
     inputUserNameLogin.disabled = inputPasswordLogin.disabled = true;
   }
-  balance(currentAccount);
-  transactionSummary(currentAccount);
+  balance(currentAccount.movements);
+  transactionSummary(currentAccount.movements);
+  displayMovements(currentAccount.movements);
 };
 
 const logOut = function () {
@@ -79,26 +86,38 @@ const currFormat = function (container, value) {
   }).format(value);
 };
 
-const balance = function (account) {
-  const movements = account.movements;
-  const amount = movements.reduce((acc, mov) => acc + mov, movements[0]);
+const balance = function (movements) {
+  const amount = movements.reduce((acc, mov) => acc + mov, 0);
   currFormat(currentBalance, amount);
 };
 
 // In/Out - summary
 
-const transactionSummary = function (account) {
-  const inTransaction = account.movements
+const transactionSummary = function (movements) {
+  const inTransaction = movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
   currFormat(inSummary, inTransaction);
 
-  const outTransaction = account.movements
+  const outTransaction = movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
-  currFormat(outSummary, outTransaction);
+  currFormat(outSummary, -outTransaction);
 };
 
 // Movements
 
-const displayMovements = 
+const displayMovements = function (movements) {
+  movementsContainer.innerHTML = '';
+
+  movements.forEach(function (mov) {
+    const type = mov > 0 ? 'deposit' : 'withdrawal';
+    const html = `
+      <tr>
+        <td class = 'moveType-${type}'>${type}</td>
+        <td>${mov}€</td>
+      </tr>
+    `;
+    movementsContainer.insertAdjacentHTML('afterbegin', html);
+  });
+};
