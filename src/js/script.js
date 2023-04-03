@@ -6,6 +6,7 @@ const welcomeInfo = document.querySelector('.welcome');
 const loginButton = document.querySelector('.btn--log');
 const loginButtonDescription = document.querySelector('.LoginBtnType');
 const userPanel = document.querySelector('.user-panel');
+const balanceDate = document.querySelector('.date');
 
 // Accounts
 
@@ -60,3 +61,8 @@ loginButton.addEventListener('click', function (event) {
   event.preventDefault();
   userPanel.classList.contains('visibility') ? welcomePanel() : logOut();
 });
+
+// Current Date
+
+const date = new Intl.DateTimeFormat(navigator.language).format(new Date());
+balanceDate.textContent = date;
