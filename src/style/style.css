@@ -81,6 +81,10 @@ header {
   font-size: 32px;
 }
 
+.date {
+  font-size: 20px;
+}
+
 /* Main content -- Movements */
 
 .movements::-webkit-scrollbar {

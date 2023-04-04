@@ -41,40 +41,50 @@ const account3 = {
 
 const accounts = [account1, account2, account3];
 
+// Added username as property into each account and save logged user account
+
+const createUsernames = function (accounts) {
+  accounts.forEach(function (account) {
+    account.username = account.owner.toLowerCase().split(' ')[0];
+  });
+};
+createUsernames(accounts);
+
 let loggedUserAccount;
 
-// Login functionality
-
-const loggedUser = function (user) {
-  const currentAccount = accounts.find(
-    acount =>
-      acount.owner.split(' ')[0].toLocaleLowerCase() ===
-      inputUserNameLogin.value
+const loggedUser = function () {
+  loggedUserAccount = accounts.find(
+    acount => acount.username === inputUserNameLogin.value
   );
-  loggedUserAccount = currentAccount;
 };
 
+// Update content in user panel
+
+const updateUserPanelData = function () {
+  balance(loggedUserAccount);
+  transactionSummary(loggedUserAccount.movements);
+  displayMovements(loggedUserAccount.movements);
+};
+
+// Open user panel
+
 const welcomePanel = function () {
-  const currentAccount = accounts.find(
-    acount =>
-      acount.owner.split(' ')[0].toLocaleLowerCase() ===
-      inputUserNameLogin.value
-  );
-  if (currentAccount?.pin === Number(inputPasswordLogin.value)) {
+  loggedUser();
+  if (loggedUserAccount?.pin === Number(inputPasswordLogin.value)) {
     userPanel.classList.remove('visibility');
     welcomeInfo.textContent = `Welcome back, ${
-      currentAccount.owner.split(' ')[0]
-    }`;
+      loggedUserAccount.owner.split(' ')[0]
+    }!`;
     loggedUser(inputUserNameLogin.value);
     inputUserNameLogin.value = inputPasswordLogin.value = '';
     inputPasswordLogin.blur();
     loginButtonDescription.textContent = 'Out';
     inputUserNameLogin.disabled = inputPasswordLogin.disabled = true;
   }
-  balance(currentAccount.movements);
-  transactionSummary(currentAccount.movements);
-  displayMovements(currentAccount.movements);
+  updateUserPanelData();
 };
+
+// Logout/Login - functionality
 
 const logOut = function () {
   userPanel.classList.add('visibility');
@@ -100,9 +110,10 @@ const currFormat = function (container, value) {
   }).format(value);
 };
 
-const balance = function (movements) {
-  const amount = movements.reduce((acc, mov) => acc + mov, 0);
+const balance = function (account) {
+  const amount = account.movements.reduce((acc, mov) => acc + mov, 0);
   currFormat(currentBalance, amount);
+  account.balance = amount;
 };
 
 // In/Out - summary
@@ -119,11 +130,10 @@ const transactionSummary = function (movements) {
   currFormat(outSummary, -outTransaction);
 };
 
-// Movements
+// Movements view
 
 const displayMovements = function (movements) {
   movementsContainer.innerHTML = '';
-
   movements.forEach(function (mov) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
     const html = `
@@ -138,22 +148,24 @@ const displayMovements = function (movements) {
 
 // Internal Money Transfer
 
-const show = function () {
-  console.log('Uzytkownik:', loggedUserName);
-};
-
 const InternalMoneyTransfer = function () {
+  console.log(loggedUserAccount.balance);
+  console.log(loggedUserAccount);
   const amount = Number(inputTransferAmount.value);
   const reciverAccount = accounts.find(
-    acount =>
-      acount?.owner.split(' ')[0].toLocaleLowerCase() === inputTransferTo.value
+    acount => acount.username === inputTransferTo.value
   );
-  reciverAccount.movements.push(amount);
-  loggedUserAccount.movements.push(-amount);
-  inputTransferTo.value = inputTransferAmount.value = '';
-  balance(loggedUserAccount.movements);
-  transactionSummary(loggedUserAccount.movements);
-  displayMovements(loggedUserAccount.movements);
+  if (
+    amount > 0 &&
+    reciverAccount &&
+    loggedUserAccount.balance >= amount &&
+    reciverAccount?.username !== loggedUserAccount.username
+  ) {
+    reciverAccount.movements.push(amount);
+    loggedUserAccount.movements.push(-amount);
+    inputTransferTo.value = inputTransferAmount.value = '';
+    updateUserPanelData();
+  }
 };
 
 moneyTransferButton.addEventListener('click', function (event) {
