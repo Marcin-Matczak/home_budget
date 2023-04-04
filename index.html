@@ -41,25 +41,21 @@
       </aside>
       <section class="transfer">
         <h2>Internal Money Transfer</h2>
-        <div class="form">
-          <form class="form">
-            <input type="text" />
-            <label>Transfer to</label>
-            <input type="number" />
-            <label>Amount</label>
-            <button class="btn btn-send btn-form">Send</button>
-          </form>
-        </div>
+        <form class="form">
+          <input type="text" class="form__to" />
+          <label>Transfer to</label>
+          <input type="number" class="form__amount" />
+          <label>Amount</label>
+          <button class="btn btn-form btn-transfer">Send</button>
+        </form>
       </section>
       <section class="request">
         <h2>Deposit the money</h2>
-        <div class="form">
-          <form class="form">
-            <input type="text" />
-            <label>Amount</label>
-            <button class="btn btn-send btn-form">Send</button>
-          </form>
-        </div>
+        <form class="form">
+          <input type="text" />
+          <label>Amount</label>
+          <button class="btn btn-form">Send</button>
+        </form>
       </section>
       <section class="close">
         <h2>Close account</h2>
@@ -68,7 +64,7 @@
           <label>User</label>
           <input type="password" maxlength="4" />
           <label>PIN</label>
-          <button class="btn btn-close btn-form">Close</button>
+          <button class="btn btn-form">Close</button>
         </form>
       </section>
       <footer>

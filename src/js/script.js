@@ -11,7 +11,9 @@ const currentBalance = document.querySelector('.balance');
 const inSummary = document.querySelector('.inMovements');
 const outSummary = document.querySelector('.outMovements');
 const movementsContainer = document.querySelector('.movements_body');
-console.log(movementsContainer);
+const inputTransferTo = document.querySelector('.form__to');
+const inputTransferAmount = document.querySelector('.form__amount');
+const moneyTransferButton = document.querySelector('.btn-transfer');
 
 // Accounts
 
@@ -39,7 +41,18 @@ const account3 = {
 
 const accounts = [account1, account2, account3];
 
+let loggedUserAccount;
+
 // Login functionality
+
+const loggedUser = function (user) {
+  const currentAccount = accounts.find(
+    acount =>
+      acount.owner.split(' ')[0].toLocaleLowerCase() ===
+      inputUserNameLogin.value
+  );
+  loggedUserAccount = currentAccount;
+};
 
 const welcomePanel = function () {
   const currentAccount = accounts.find(
@@ -52,6 +65,7 @@ const welcomePanel = function () {
     welcomeInfo.textContent = `Welcome back, ${
       currentAccount.owner.split(' ')[0]
     }`;
+    loggedUser(inputUserNameLogin.value);
     inputUserNameLogin.value = inputPasswordLogin.value = '';
     inputPasswordLogin.blur();
     loginButtonDescription.textContent = 'Out';
@@ -121,3 +135,28 @@ const displayMovements = function (movements) {
     movementsContainer.insertAdjacentHTML('afterbegin', html);
   });
 };
+
+// Internal Money Transfer
+
+const show = function () {
+  console.log('Uzytkownik:', loggedUserName);
+};
+
+const InternalMoneyTransfer = function () {
+  const amount = Number(inputTransferAmount.value);
+  const reciverAccount = accounts.find(
+    acount =>
+      acount?.owner.split(' ')[0].toLocaleLowerCase() === inputTransferTo.value
+  );
+  reciverAccount.movements.push(amount);
+  loggedUserAccount.movements.push(-amount);
+  inputTransferTo.value = inputTransferAmount.value = '';
+  balance(loggedUserAccount.movements);
+  transactionSummary(loggedUserAccount.movements);
+  displayMovements(loggedUserAccount.movements);
+};
+
+moneyTransferButton.addEventListener('click', function (event) {
+  event.preventDefault();
+  InternalMoneyTransfer();
+});
