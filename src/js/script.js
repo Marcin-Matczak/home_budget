@@ -14,6 +14,8 @@ const movementsContainer = document.querySelector('.movements_body');
 const inputTransferTo = document.querySelector('.form__to');
 const inputTransferAmount = document.querySelector('.form__amount');
 const moneyTransferButton = document.querySelector('.btn-transfer');
+const depositButton = document.querySelector('.depositBtn');
+const inputDeposit = document.querySelector('.deposit');
 
 // Accounts
 
@@ -113,6 +115,7 @@ const currFormat = function (container, value) {
 const balance = function (account) {
   const amount = account.movements.reduce((acc, mov) => acc + mov, 0);
   currFormat(currentBalance, amount);
+
   account.balance = amount;
 };
 
@@ -171,4 +174,19 @@ const InternalMoneyTransfer = function () {
 moneyTransferButton.addEventListener('click', function (event) {
   event.preventDefault();
   InternalMoneyTransfer();
+});
+
+// Deposit
+
+const depositMoney = function () {
+  const amount = Number(inputDeposit.value);
+  if (amount) {
+    loggedUserAccount.movements.push(amount);
+    updateUserPanelData();
+  }
+};
+
+depositButton.addEventListener('click', function (event) {
+  event.preventDefault();
+  depositMoney();
 });
