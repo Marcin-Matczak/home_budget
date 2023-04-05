@@ -166,7 +166,7 @@ tr:nth-child(odd) {
 }
 
 section h2 {
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 
 .form > * {
@@ -179,6 +179,26 @@ input {
   border: none;
   border-radius: 3px;
   padding: 2px;
+}
+
+.icons {
+  margin-top:20px;
+  display: grid;
+  grid-template-columns: repeat(5, 30px);
+  grid-template-rows: repeat(2, 30px); 
+  gap: 5px;
+}
+
+.icon{
+  border: none;
+}
+
+.icon:hover{
+  background-color: #d11e1e;
+}
+
+.icon:hover:first-child{
+  background-color: #00ac00;
 }
 
 /* Main content -- Footer */
@@ -225,6 +245,6 @@ footer p {
 
 .btn-form {
   position: absolute;
-  top: 60px;
-  left: 0px;
+  top: 70px;
+  right: 20px;
 }

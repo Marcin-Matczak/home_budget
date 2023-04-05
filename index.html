@@ -5,7 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./src/style/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/balloon-css/balloon.min.css"
+    />
     <script defer src="./src/js/script.js"></script>
+    <script
+      src="https://kit.fontawesome.com/edb01b40e4.js"
+      crossorigin="anonymous"
+    ></script>
     <title>Home Budget</title>
   </head>
   <body>
@@ -50,10 +58,50 @@
         </form>
       </section>
       <section class="request">
-        <h2>Deposit the money</h2>
+        <h2>Deposit / Withdrawal</h2>
         <form class="form">
           <input type="text" class="deposit" />
           <label>Amount</label>
+          <div class="icons">
+            <button class="icon" aria-label="salary" data-balloon-pos="up">
+              <i class="fa-solid fa-sack-dollar fa-xl"></i>
+            </button>
+            <button
+              class="icon"
+              aria-label="entertainment"
+              data-balloon-pos="up"
+            >
+              <i class="fa-solid fa-music fa-xl"></i>
+            </button>
+            <button class="icon" aria-label="vehicles" data-balloon-pos="up">
+              <i class="fa-solid fa-solid fa-car fa-xl"></i>
+            </button>
+            <button class="icon" aria-label="fees" data-balloon-pos="up">
+              <i class="fa-solid fa-file-invoice-dollar fa-xl"></i>
+            </button>
+            <button class="icon" aria-label="clothes" data-balloon-pos="right">
+              <i class="fa-sharp fa-solid fa-shirt fa-xl"></i>
+            </button>
+            <button class="icon" aria-label="home" data-balloon-pos="down">
+              <i class="fa-solid fa-house fa-xl"></i>
+            </button>
+            <button
+              class="icon"
+              aria-label="medication"
+              data-balloon-pos="down"
+            >
+              <i class="fa-solid fa-heart-pulse fa-xl"></i>
+            </button>
+            <button class="icon" aria-label="education" data-balloon-pos="down">
+              <i class="fa-solid fa-user-graduate fa-xl"></i>
+            </button>
+            <button class="icon" aria-label="food" data-balloon-pos="down">
+              <i class="fa-solid fa-utensils fa-xl"></i>
+            </button>
+            <button class="icon" aria-label="other" data-balloon-pos="right">
+              <i class="fa-solid fa-coins fa-xl"></i>
+            </button>
+          </div>
           <button class="btn btn-form depositBtn">Send</button>
         </form>
       </section>

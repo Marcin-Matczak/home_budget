@@ -16,6 +16,7 @@ const inputTransferAmount = document.querySelector('.form__amount');
 const moneyTransferButton = document.querySelector('.btn-transfer');
 const depositButton = document.querySelector('.depositBtn');
 const inputDeposit = document.querySelector('.deposit');
+const iconsWrapper = document.querySelector('.icons');
 
 // Accounts
 
@@ -115,7 +116,6 @@ const currFormat = function (container, value) {
 const balance = function (account) {
   const amount = account.movements.reduce((acc, mov) => acc + mov, 0);
   currFormat(currentBalance, amount);
-
   account.balance = amount;
 };
 
@@ -152,8 +152,6 @@ const displayMovements = function (movements) {
 // Internal Money Transfer
 
 const InternalMoneyTransfer = function () {
-  console.log(loggedUserAccount.balance);
-  console.log(loggedUserAccount);
   const amount = Number(inputTransferAmount.value);
   const reciverAccount = accounts.find(
     acount => acount.username === inputTransferTo.value
@@ -176,17 +174,27 @@ moneyTransferButton.addEventListener('click', function (event) {
   InternalMoneyTransfer();
 });
 
-// Deposit
+// Deposit / Withdrawal
 
 const depositMoney = function () {
   const amount = Number(inputDeposit.value);
   if (amount) {
     loggedUserAccount.movements.push(amount);
     updateUserPanelData();
+    inputDeposit.value = '';
   }
 };
 
 depositButton.addEventListener('click', function (event) {
   event.preventDefault();
   depositMoney();
+});
+
+// Deposit / Withdrawal - icons
+
+iconsWrapper.addEventListener('click', function (event) {
+  event.preventDefault();
+  const clickedIcon = event.target.closest('.icon');
+  const type = clickedIcon.getAttribute('aria-label');
+  console.log(clickedIcon, type);
 });
