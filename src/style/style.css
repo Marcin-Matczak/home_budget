@@ -201,6 +201,14 @@ input {
   background-color: #00ac00;
 }
 
+.icon:focus{
+  background-color: #ba1b1b;
+}
+
+.icon:focus:first-child{
+  background-color: #059d05;
+}
+
 /* Main content -- Footer */
 
 footer {

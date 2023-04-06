@@ -37,12 +37,62 @@ const account3 = {
   pin: 1996,
   movements: [
     12000, 8000, -2000, 1500, -7600, 1050, -2000, -950, 200, 12000, 8000, -2000,
-    1500, -7600, 1050, -2000, -950, 200, 12000, 8000, -2000, 1500, -7600, 1050,
-    -2000, -950, 200, 12000, 8000, -2000, 1500, -7600, 1050, -2000, -950, 200,
   ],
 };
 
+const account4 = {
+  owner: 'Jim Beam',
+  pin: 1111,
+  movements: [],
+};
+
 const accounts = [account1, account2, account3];
+
+// const movementsIcons = {
+//   salary: '<i class="fa-solid fa-sack-dollar fa-2xs"></i>',
+//   entertainment: '<i class="fa-solid fa-music fa-2xs"></i>',
+//   vehicles: '<i class="fa-solid fa-solid fa-car fa-2xs"></i>',
+//   fees: '<i class="fa-solid fa-file-invoice-dollar fa-2xs"></i>',
+//   clothes: '<i class="fa-sharp fa-solid fa-shirt fa-2xs"></i>',
+//   home: '<i class="fa-solid fa-house fa-2xs"></i>',
+//   medication: '<i class="fa-solid fa-heart-pulse fa-2xs"></i>',
+//   education: '<i class="fa-solid fa-user-graduate fa-2xs"></i>',
+//   food: '<i class="fa-solid fa-utensils fa-2xs"></i>',
+//   other: '<i class="fa-solid fa-coins fa-2xs"></i>',
+// };
+
+const movementsIcons = new Map();
+movementsIcons
+  .set('salary', '<i class="fa-solid fa-sack-dollar fa-2xs"></i>')
+  .set('entertainment', '<i class="fa-solid fa-music fa-2xs"></i>')
+  .set('vehicles', '<i class="fa-solid fa-solid fa-car fa-2xs"></i>')
+  .set('fees', '<i class="fa-solid fa-file-invoice-dollar fa-2xs')
+  .set('clothes', '<i class="fa-sharp fa-solid fa-shirt fa-2xs"></i>')
+  .set('home', '<i class="fa-solid fa-house fa-2xs"></i>')
+  .set('medication', '<i class="fa-solid fa-heart-pulse fa-2xs"></i>')
+  .set('education', '<i class="fa-solid fa-user-graduate fa-2xs')
+  .set('food', '<i class="fa-solid fa-utensils fa-2xs"></i>')
+  .set('other', '<i class="fa-solid fa-coins fa-2xs"></i>');
+
+const savedMovements = function (accounts) {
+  accounts.forEach(function (account) {
+    account.movementsHTML = [];
+    account.movements.forEach(function (mov) {
+      const type = mov > 0 ? 'deposit' : 'withdrawal';
+      const html = `
+            <tr>
+            <td><i class="fa-solid fa-coins fa-2xs"></i></td>
+              <td class = 'moveType-${type}'>${type}</td>
+              <td>${mov}€</td>
+            </tr>
+          `;
+      account.movementsHTML.push(html);
+    });
+  });
+};
+
+savedMovements(accounts);
+console.log(accounts);
 
 // Added username as property into each account and save logged user account
 
@@ -66,7 +116,6 @@ const loggedUser = function () {
 const updateUserPanelData = function () {
   balance(loggedUserAccount);
   transactionSummary(loggedUserAccount.movements);
-  displayMovements(loggedUserAccount.movements);
 };
 
 // Open user panel
@@ -84,6 +133,7 @@ const welcomePanel = function () {
     loginButtonDescription.textContent = 'Out';
     inputUserNameLogin.disabled = inputPasswordLogin.disabled = true;
   }
+  renderMovements();
   updateUserPanelData();
 };
 
@@ -132,23 +182,59 @@ const transactionSummary = function (movements) {
     .reduce((acc, mov) => acc + mov, 0);
   currFormat(outSummary, -outTransaction);
 };
-
+//////////////////////////////////////////////////////////////////////////////
 // Movements view
-
-const displayMovements = function (movements) {
+const clearMovements = function () {
   movementsContainer.innerHTML = '';
-  movements.forEach(function (mov) {
-    const type = mov > 0 ? 'deposit' : 'withdrawal';
-    const html = `
-      <tr>
-        <td class = 'moveType-${type}'>${type}</td>
-        <td>${mov}€</td>
-      </tr>
-    `;
-    movementsContainer.insertAdjacentHTML('afterbegin', html);
-  });
 };
 
+let iconType;
+
+const depositMoney = function () {
+  const amount = Number(inputDeposit.value);
+  if (amount) {
+    const type = amount > 0 ? 'deposit' : 'withdrawal';
+    const html = `
+    <tr>
+    <td>${movementsIcons.get(iconType)}</td>
+      <td class = 'moveType-${type}'>${type}</td>
+      <td>${amount}€</td>
+    </tr>
+  `;
+    loggedUserAccount.movements.push(amount);
+    loggedUserAccount.movementsHTML.push(html);
+    renderMovements();
+    inputDeposit.value = '';
+  }
+};
+
+const renderMovements = function () {
+  clearMovements();
+  loggedUserAccount.movementsHTML.forEach(mov => {
+    movementsContainer.insertAdjacentHTML('afterbegin', mov);
+  });
+  updateUserPanelData();
+  console.log(loggedUserAccount.movements, loggedUserAccount.movementsHTML);
+};
+
+///////////////////////////////////////////////////////////////////////////////
+
+// const displayMovements = function (movements) {
+//   console.log(movementsIcons.get(iconType));
+//   movementsContainer.innerHTML = '';
+//   movements.forEach(function (mov) {
+//     const type = mov > 0 ? 'deposit' : 'withdrawal';
+//     const html = `
+//       <tr>
+//       <td>${movementsIcons.iconType}</td>
+//         <td class = 'moveType-${type}'>${type}</td>
+//         <td>${mov}€</td>
+//       </tr>
+//     `;
+//     movementsContainer.insertAdjacentHTML('afterbegin', html);
+//   });
+
+/////////////////////////////////////////////////////////////////////////////
 // Internal Money Transfer
 
 const InternalMoneyTransfer = function () {
@@ -176,14 +262,14 @@ moneyTransferButton.addEventListener('click', function (event) {
 
 // Deposit / Withdrawal
 
-const depositMoney = function () {
-  const amount = Number(inputDeposit.value);
-  if (amount) {
-    loggedUserAccount.movements.push(amount);
-    updateUserPanelData();
-    inputDeposit.value = '';
-  }
-};
+// const depositMoney = function () {
+//   const amount = Number(inputDeposit.value);
+//   if (amount) {
+//     loggedUserAccount.movements.push(amount);
+//     updateUserPanelData(amount);
+//     inputDeposit.value = '';
+//   }
+// };
 
 depositButton.addEventListener('click', function (event) {
   event.preventDefault();
@@ -195,6 +281,6 @@ depositButton.addEventListener('click', function (event) {
 iconsWrapper.addEventListener('click', function (event) {
   event.preventDefault();
   const clickedIcon = event.target.closest('.icon');
-  const type = clickedIcon.getAttribute('aria-label');
-  console.log(clickedIcon, type);
+  if (!clickedIcon) return;
+  iconType = clickedIcon.getAttribute('aria-label');
 });
