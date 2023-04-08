@@ -126,19 +126,21 @@ table td {
   font-size: 20px;
   font-weight: 600;
   text-align: center;
-  color: rgb(246, 246, 246);;
 }
 
 tr:nth-child(odd) {
-  background-color: rgb(82, 82, 82);
+  background-color: rgb(133, 133, 133);
+}
+tr:nth-child(even) {
+  background-color: rgb(155, 155, 155);
 }
 
 .moveType-deposit {
-  color: #35ac35;
+  color: #1e701e;
 }
 
 .moveType-withdrawal {
-  color: #ff3232;
+  color: #a80000;
 }
 
 /* Main content -- Forms */
@@ -202,11 +204,11 @@ input {
 }
 
 .icon:focus{
-  background-color: #ba1b1b;
+  background-color: #a80000;
 }
 
 .icon:focus:first-child{
-  background-color: #059d05;
+  background-color: #1e701e;
 }
 
 /* Main content -- Footer */

@@ -23,7 +23,7 @@ const iconsWrapper = document.querySelector('.icons');
 const account1 = {
   owner: 'Marcin Matczak',
   pin: 1202,
-  movements: [1000, 200, -400, 150, -300],
+  movements: [1000, 200, -400, 150, -300, 280],
 };
 
 const account2 = {
@@ -35,9 +35,7 @@ const account2 = {
 const account3 = {
   owner: 'John Doe',
   pin: 1996,
-  movements: [
-    12000, 8000, -2000, 1500, -7600, 1050, -2000, -950, 200, 12000, 8000, -2000,
-  ],
+  movements: [8000, -2000, 1500, -7600, 1050, -950, 200, 12000, 8000, -2000],
 };
 
 const account4 = {
@@ -52,16 +50,16 @@ const accounts = [account1, account2, account3, account4];
 
 const movementsIcons = new Map();
 movementsIcons
-  .set('salary', '<i class="fa-solid fa-sack-dollar fa-2xs"></i>')
-  .set('entertainment', '<i class="fa-solid fa-music fa-2xs"></i>')
-  .set('vehicles', '<i class="fa-solid fa-solid fa-car fa-2xs"></i>')
-  .set('fees', '<i class="fa-solid fa-file-invoice-dollar fa-2xs')
-  .set('clothes', '<i class="fa-sharp fa-solid fa-shirt fa-2xs"></i>')
-  .set('home', '<i class="fa-solid fa-house fa-2xs"></i>')
-  .set('medication', '<i class="fa-solid fa-heart-pulse fa-2xs"></i>')
-  .set('education', '<i class="fa-solid fa-user-graduate fa-2xs')
-  .set('food', '<i class="fa-solid fa-utensils fa-2xs"></i>')
-  .set('other', '<i class="fa-solid fa-coins fa-2xs"></i>');
+  .set('salary', '<i class="fa-solid fa-sack-dollar fa-xs"></i>')
+  .set('entertainment', '<i class="fa-solid fa-music fa-xs"></i>')
+  .set('vehicles', '<i class="fa-solid fa-solid fa-car fa-xs"></i>')
+  .set('fees', '<i class="fa-solid fa-file-invoice-dollar fa-xs"</i>')
+  .set('clothes', '<i class="fa-sharp fa-solid fa-shirt fa-xs"></i>')
+  .set('home', '<i class="fa-solid fa-house fa-xs"></i>')
+  .set('medication', '<i class="fa-solid fa-heart-pulse fa-xs"></i>')
+  .set('education', '<i class="fa-solid fa-user-graduate fa-xs"></i>')
+  .set('food', '<i class="fa-solid fa-utensils fa-xs"></i>')
+  .set('other', '<i class="fa-solid fa-coins fa-xs"></i>');
 
 // Loading saved movements form created array with HTML
 
@@ -72,7 +70,7 @@ const savedMovements = function (accounts) {
       const type = mov > 0 ? 'deposit' : 'withdrawal';
       const html = `
         <tr>
-          <td><i class="fa-solid fa-coins fa-2xs"></i></td>
+          <td><i class="fa-solid fa-coins fa-xs"></i></td>
             <td class = 'moveType-${type}'>${type}</td>
             <td>${mov}€</td>
         </tr>`;
@@ -173,8 +171,6 @@ const transactionSummary = function (movements) {
   currFormat(outSummary, -outTransaction);
 };
 
-///////////////////////// TO-DO /////////////////////////
-
 // Movements view
 
 let iconType;
@@ -190,7 +186,7 @@ const renderMovements = function (account) {
   });
 };
 
-// Internal Money Transfer /// przed updateUserPanelData(); dodac wywolanie deposit() z arhumentem pod html ?
+// Internal Money Transfer
 
 const InternalMoneyTransfer = function () {
   const amount = Number(inputTransferAmount.value);
@@ -222,7 +218,6 @@ const InternalMoneyTransfer = function () {
     updateUserPanelData(loggedUserAccount);
     reciverAccount.movements.push(amount);
     reciverAccount.movementsHTML.push(deposithtml);
-    updateUserPanelData(reciverAccount);
     inputTransferTo.value = inputTransferAmount.value = '';
   }
   console.log('Nadawca:', loggedUserAccount);
@@ -239,18 +234,20 @@ moneyTransferButton.addEventListener('click', function (event) {
 const depositMoney = function () {
   const amount = Number(inputDeposit.value);
   if (amount) {
-    const type = amount > 0 ? 'deposit' : 'withdrawal';
+    movValue = iconType === 'salary' ? amount : -amount;
+    const type = movValue > 0 ? 'deposit' : 'withdrawal';
     const html = `
     <tr>
     <td>${movementsIcons.get(iconType)}</td>
       <td class = 'moveType-${type}'>${type}</td>
-      <td>${amount}€</td>
+      <td>${movValue}€</td>
     </tr>
   `;
-    loggedUserAccount.movements.push(amount);
+    loggedUserAccount.movements.push(movValue);
     loggedUserAccount.movementsHTML.push(html);
     updateUserPanelData(loggedUserAccount);
     inputDeposit.value = '';
+    iconType = '';
   }
 };
 
@@ -258,8 +255,6 @@ depositButton.addEventListener('click', function (event) {
   event.preventDefault();
   depositMoney();
 });
-
-///////////////////////// TO-DO /////////////////////////
 
 // Deposit / Withdrawal - icons
 
