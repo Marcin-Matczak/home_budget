@@ -17,6 +17,9 @@ const moneyTransferButton = document.querySelector('.btn-transfer');
 const depositButton = document.querySelector('.depositBtn');
 const inputDeposit = document.querySelector('.deposit');
 const iconsWrapper = document.querySelector('.icons');
+const closeUserInput = document.querySelector('.close-user');
+const closePinInput = document.querySelector('.close-pin');
+const closeAccountBtn = document.querySelector('.close-btn');
 
 // Accounts
 
@@ -80,7 +83,6 @@ const savedMovements = function (accounts) {
 };
 
 savedMovements(accounts);
-console.log(accounts);
 
 // Added username as property into each account and save logged user account
 
@@ -263,4 +265,27 @@ iconsWrapper.addEventListener('click', function (event) {
   const clickedIcon = event.target.closest('.icon');
   if (!clickedIcon) return;
   iconType = clickedIcon.getAttribute('aria-label');
+});
+
+// Close account
+
+const closeAccount = function () {
+  const userLogin = closeUserInput.value;
+  const userPin = Number(closePinInput.value);
+  if (
+    userLogin === loggedUserAccount.username &&
+    userPin === loggedUserAccount.pin
+  ) {
+    accounts.splice(
+      accounts.indexOf(accounts.find(account => account.pin === userPin)),
+      1
+    );
+    closeUserInput.value = closePinInput.value = '';
+    logOut();
+  }
+};
+
+closeAccountBtn.addEventListener('click', function (event) {
+  event.preventDefault();
+  closeAccount();
 });
