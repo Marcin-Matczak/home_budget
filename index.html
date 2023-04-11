@@ -34,7 +34,67 @@
         </form>
       </div>
     </nav>
-    <main class="user-panel visibility">
+    <section class="info">
+      <button class="info-closeBtn">
+        <i class="fa-solid fa-circle-xmark fa-2xl"></i>
+      </button>
+      <h2>Welcome in your budget app!</h2>
+      <p>
+        To create new account please fill the form below and confirm your data.
+        Remember that the first and last name should start with a capital
+        letter. PIN must consist of 4 digits. Example below:
+        <br />
+        <br />
+        First name: Amanda
+        <br />
+        Last name: Doe
+        <br />
+        PIN: 1234
+      </p>
+      <br /><br />
+      <form class="form info__form">
+        <input type="text" placeholder="first name" />
+        <label>Enter your name</label>
+        <input type="text" placeholder="last name" />
+        <label>Enter your last name</label>
+        <input type="password" placeholder="PIN" />
+        <label>Setup your pin</label>
+        <button class="btn confirmBtn">Confirm</button>
+      </form>
+      <br />
+      <p>
+        <strong>
+          To log in, please type your first name in lower case and your pin into
+          login panel above.</strong
+        >
+      </p>
+      <br />
+      <p>
+        If you already have an account or you would like to check how the
+        application works, please close info panel and use one of 4 fictitious
+        created account below.
+      </p>
+      <br />
+      <table class="info__table">
+        <tr>
+          <td>user: marcin</td>
+          <td>PIN: 1202</td>
+        </tr>
+        <tr>
+          <td>user: elliot</td>
+          <td>PIN: 1709</td>
+        </tr>
+        <tr>
+          <td>user: john</td>
+          <td>PIN: 1996</td>
+        </tr>
+        <tr>
+          <td>user: jim</td>
+          <td>PIN: 1111</td>
+        </tr>
+      </table>
+    </section>
+    <main class="user-panel visibility hidden">
       <header>
         <div>
           <p>Current balance</p>
@@ -43,7 +103,7 @@
         <p class="balance">2000PLN</p>
       </header>
       <aside class="movements">
-        <table>
+        <table class="movements__table">
           <tbody class="movements_body"></tbody>
         </table>
       </aside>

@@ -1,5 +1,8 @@
 // Elements
 
+const closeInfoButton = document.querySelector('.info-closeBtn');
+const infoPanel = document.querySelector('.info');
+const confirmButton = document.querySelector('.confirmBtn');
 const inputUserNameLogin = document.querySelector('.login__user');
 const inputPasswordLogin = document.querySelector('.login__password');
 const welcomeInfo = document.querySelector('.welcome');
@@ -64,6 +67,18 @@ movementsIcons
   .set('food', '<i class="fa-solid fa-utensils fa-xs"></i>')
   .set('other', '<i class="fa-solid fa-coins fa-xs"></i>');
 
+// Info panel
+
+const closeInfoPanel = function () {
+  infoPanel.classList.add('hidden');
+  userPanel.classList.remove('hidden');
+};
+
+closeInfoButton.addEventListener('click', function (event) {
+  event.preventDefault();
+  closeInfoPanel();
+});
+
 // Currency and date display format
 
 const date = new Intl.DateTimeFormat(navigator.language).format(new Date());
@@ -123,6 +138,12 @@ const updateUserPanelData = function (account) {
   transactionSummary(account.movements);
 };
 
+// Validation data
+
+const validationData = function () {
+  alert('You entered wrong data. Please try agin.');
+};
+
 // Open user panel
 
 const welcomePanel = function () {
@@ -137,6 +158,9 @@ const welcomePanel = function () {
     inputPasswordLogin.blur();
     loginButtonDescription.textContent = 'Out';
     inputUserNameLogin.disabled = inputPasswordLogin.disabled = true;
+  } else {
+    validationData();
+    return;
   }
   updateUserPanelData(loggedUserAccount);
 };
@@ -152,6 +176,7 @@ const logOut = function () {
 
 loginButton.addEventListener('click', function (event) {
   event.preventDefault();
+  closeInfoPanel();
   userPanel.classList.contains('visibility') ? welcomePanel() : logOut();
 });
 
@@ -225,9 +250,9 @@ const InternalMoneyTransfer = function () {
     reciverAccount.movements.push(amount);
     reciverAccount.movementsHTML.push(deposithtml);
     inputTransferTo.value = inputTransferAmount.value = '';
+  } else {
+    validationData();
   }
-  console.log('Nadawca:', loggedUserAccount);
-  console.log('Odbiorca:', reciverAccount);
 };
 
 moneyTransferButton.addEventListener('click', function (event) {
@@ -254,6 +279,8 @@ const depositMoney = function () {
     updateUserPanelData(loggedUserAccount);
     inputDeposit.value = '';
     iconType = '';
+  } else {
+    validationData();
   }
 };
 
@@ -286,6 +313,8 @@ const closeAccount = function () {
     );
     closeUserInput.value = closePinInput.value = '';
     logOut();
+  } else {
+    validationData();
   }
 };
 
