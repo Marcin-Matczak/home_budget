@@ -64,6 +64,20 @@ movementsIcons
   .set('food', '<i class="fa-solid fa-utensils fa-xs"></i>')
   .set('other', '<i class="fa-solid fa-coins fa-xs"></i>');
 
+// Currency and date display format
+
+const date = new Intl.DateTimeFormat(navigator.language).format(new Date());
+balanceDate.textContent = date;
+
+const currFormat = function (value) {
+  const format = new Intl.NumberFormat(navigator.language, {
+    style: 'currency',
+    currency: 'PLN',
+  }).format(value);
+
+  return format;
+};
+
 // Loading saved movements form created array with HTML
 
 const savedMovements = function (accounts) {
@@ -75,7 +89,7 @@ const savedMovements = function (accounts) {
         <tr>
           <td><i class="fa-solid fa-coins fa-xs"></i></td>
             <td class = 'moveType-${type}'>${type}</td>
-            <td>${mov}€</td>
+            <td>${currFormat(mov)}</td>
         </tr>`;
       account.movementsHTML.push(html);
     });
@@ -141,21 +155,11 @@ loginButton.addEventListener('click', function (event) {
   userPanel.classList.contains('visibility') ? welcomePanel() : logOut();
 });
 
-// Current balacne section
-
-const date = new Intl.DateTimeFormat(navigator.language).format(new Date());
-balanceDate.textContent = date;
-
-const currFormat = function (container, value) {
-  container.textContent = new Intl.NumberFormat(navigator.language, {
-    style: 'currency',
-    currency: 'PLN',
-  }).format(value);
-};
+// Display balance
 
 const balance = function (account) {
   const amount = account.movements.reduce((acc, mov) => acc + mov, 0);
-  currFormat(currentBalance, amount);
+  currentBalance.textContent = currFormat(amount);
   account.balance = amount;
 };
 
@@ -165,12 +169,12 @@ const transactionSummary = function (movements) {
   const inTransaction = movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
-  currFormat(inSummary, inTransaction);
+  inSummary.textContent = currFormat(inTransaction);
 
   const outTransaction = movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
-  currFormat(outSummary, -outTransaction);
+  outSummary.textContent = currFormat(-outTransaction);
 };
 
 // Movements view
@@ -205,14 +209,14 @@ const InternalMoneyTransfer = function () {
     <tr>
     <td><i class="fa-solid fa-user fa-2xs"></i></td>
       <td class = 'moveType-deposit'>deposit</td>
-      <td>${amount}€</td>
+      <td>${currFormat(amount)}</td>
     </tr>
   `;
     const withdrawalhtml = `
     <tr>
     <td><i class="fa-solid fa-user fa-2xs"></i></td>
       <td class = 'moveType-withdrawal'>withdrawal</td>
-      <td>${-amount}€</td>
+      <td>${currFormat(-amount)}</td>
     </tr>
   `;
     loggedUserAccount.movements.push(-amount);
@@ -242,7 +246,7 @@ const depositMoney = function () {
     <tr>
     <td>${movementsIcons.get(iconType)}</td>
       <td class = 'moveType-${type}'>${type}</td>
-      <td>${movValue}€</td>
+      <td>${currFormat(movValue)}</td>
     </tr>
   `;
     loggedUserAccount.movements.push(movValue);
