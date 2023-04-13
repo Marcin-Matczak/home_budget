@@ -83,6 +83,34 @@ closeInfoButton.addEventListener('click', function (event) {
   closeInfoPanel();
 });
 
+// Validation new account
+
+const validationInputs = function (personFirstName, personLastName, pin) {
+  const userFirstName = personFirstName.value;
+  const userLastName = personLastName.value;
+  const pinData = Number(pin.value);
+  const capitalLetters = /[A-Z]/;
+  const smallLetters = /^[a-z]+$/;
+  if (
+    userFirstName.slice(1).match(smallLetters) &&
+    userFirstName[0].match(capitalLetters) &&
+    userLastName.slice(1).match(smallLetters) &&
+    userLastName[0].match(capitalLetters)
+  ) {
+    if (typeof pinData === 'number' && pinData.toString().length === 4) {
+      return true;
+    } else {
+      alert('Incorrect PIN. Please enter a four-digit number.');
+      return false;
+    }
+  } else {
+    alert(
+      'Wrong data! Remember that the first and last name should start with a capital and cannot contain whitespace or special signs.'
+    );
+    return false;
+  }
+};
+
 // New account
 
 let newUserAccount;
@@ -100,11 +128,11 @@ const newAccount = function () {
 
 infoForm.addEventListener('submit', function (event) {
   event.preventDefault();
+  if (!validationInputs(inputFirstName, inputLastName, inputSetupPin)) return;
   newAccount();
   inputFirstName.value = inputLastName.value = inputSetupPin.value = '';
   infoForm.classList.add('visibility');
   successInfo.classList.remove('hidden');
-  console.log(accounts);
 });
 
 // Currency and date display format
