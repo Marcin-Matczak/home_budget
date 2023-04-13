@@ -54,7 +54,20 @@ const account4 = {
   movements: [],
 };
 
-const accounts = [account1, account2, account3, account4];
+let accounts = [account1, account2, account3, account4];
+
+// Get data from local storage
+const getLocalStorage = function () {
+  const data = JSON.parse(localStorage.getItem('accounts'));
+  if (!data) return;
+  accounts = data;
+};
+getLocalStorage();
+// Data save in local storage
+
+const setLocalStorage = function () {
+  localStorage.setItem('accounts', JSON.stringify(accounts));
+};
 
 // Icons HTML
 
@@ -133,6 +146,7 @@ infoForm.addEventListener('submit', function (event) {
   inputFirstName.value = inputLastName.value = inputSetupPin.value = '';
   infoForm.classList.add('visibility');
   successInfo.classList.remove('hidden');
+  setLocalStorage();
 });
 
 // Currency and date display format
@@ -233,6 +247,7 @@ loginButton.addEventListener('click', function (event) {
   savedMovements(accounts);
   createUsernames(accounts);
   userPanel.classList.contains('visibility') ? welcomePanel() : logOut();
+  setLocalStorage();
 });
 
 // Display balance
@@ -313,6 +328,7 @@ const InternalMoneyTransfer = function () {
 moneyTransferButton.addEventListener('click', function (event) {
   event.preventDefault();
   InternalMoneyTransfer();
+  setLocalStorage();
 });
 
 // Deposit / Withdrawal
@@ -342,6 +358,7 @@ const depositMoney = function () {
 depositButton.addEventListener('click', function (event) {
   event.preventDefault();
   depositMoney();
+  setLocalStorage();
 });
 
 // Deposit / Withdrawal - icons
@@ -376,4 +393,5 @@ const closeAccount = function () {
 closeAccountBtn.addEventListener('click', function (event) {
   event.preventDefault();
   closeAccount();
+  setLocalStorage();
 });
