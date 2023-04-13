@@ -50,6 +50,8 @@ h1 {
   background-color: rgb(141, 204, 255);
   padding: 30px;
   border-radius: 20px; 
+  opacity: 100;
+  transition: opacity 1s;
 }
 
 .info-closeBtn {
@@ -80,6 +82,14 @@ h1 {
 
 .info__table td {
   padding-left: 30px;
+}
+
+.successInfo {
+  position: absolute;
+  top: 47%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 26px;
 }
 
 /* Main content */

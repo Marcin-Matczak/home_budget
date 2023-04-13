@@ -38,7 +38,7 @@
       <button class="info-closeBtn">
         <i class="fa-solid fa-circle-xmark fa-2xl"></i>
       </button>
-      <h2>Welcome in your budget app!</h2>
+      <h2>Welcome in home budget app!</h2>
       <p>
         To create new account please fill the form below and confirm your data.
         Remember that the first and last name should start with a capital
@@ -53,14 +53,38 @@
       </p>
       <br /><br />
       <form class="form info__form">
-        <input type="text" placeholder="first name" />
-        <label>Enter your name</label>
-        <input type="text" placeholder="last name" />
-        <label>Enter your last name</label>
-        <input type="password" placeholder="PIN" />
-        <label>Setup your pin</label>
-        <button class="btn confirmBtn">Confirm</button>
+        <input
+          required
+          minlength="2"
+          for="firstName"
+          type="text"
+          placeholder="first name"
+          class="firstName"
+        />
+        <label id="firstName">Enter your name</label>
+        <input
+          required
+          minlength="2"
+          id="lastName"
+          type="text"
+          placeholder="last name"
+          class="lastName"
+        />
+        <label for="lastName">Enter your last name</label>
+        <input
+          required
+          maxlength="4"
+          id="setpin"
+          type="password"
+          placeholder="PIN"
+          class="setupPin"
+        />
+        <label for="setpin">Setup your pin</label>
+        <button class="btn confirmBtn" type="submit">Confirm</button>
       </form>
+      <div class="successInfo hidden">
+        <strong>Success! Account created!</strong>
+      </div>
       <br />
       <p>
         <strong>

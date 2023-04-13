@@ -2,7 +2,11 @@
 
 const closeInfoButton = document.querySelector('.info-closeBtn');
 const infoPanel = document.querySelector('.info');
-const confirmButton = document.querySelector('.confirmBtn');
+const infoForm = document.querySelector('.info__form');
+const inputFirstName = document.querySelector('.firstName');
+const inputLastName = document.querySelector('.lastName');
+const inputSetupPin = document.querySelector('.setupPin');
+const successInfo = document.querySelector('.successInfo');
 const inputUserNameLogin = document.querySelector('.login__user');
 const inputPasswordLogin = document.querySelector('.login__password');
 const welcomeInfo = document.querySelector('.welcome');
@@ -70,13 +74,37 @@ movementsIcons
 // Info panel
 
 const closeInfoPanel = function () {
-  infoPanel.classList.add('hidden');
+  infoPanel.classList.add('visibility');
   userPanel.classList.remove('hidden');
 };
 
 closeInfoButton.addEventListener('click', function (event) {
   event.preventDefault();
   closeInfoPanel();
+});
+
+// New account
+
+let newUserAccount;
+
+const newAccount = function () {
+  const owner = inputFirstName.value + ' ' + inputLastName.value;
+  const pin = Number(inputSetupPin.value);
+  newUserAccount = {
+    owner,
+    pin,
+    movements: [],
+  };
+  accounts.push(newUserAccount);
+};
+
+infoForm.addEventListener('submit', function (event) {
+  event.preventDefault();
+  newAccount();
+  inputFirstName.value = inputLastName.value = inputSetupPin.value = '';
+  infoForm.classList.add('visibility');
+  successInfo.classList.remove('hidden');
+  console.log(accounts);
 });
 
 // Currency and date display format
@@ -111,8 +139,6 @@ const savedMovements = function (accounts) {
   });
 };
 
-savedMovements(accounts);
-
 // Added username as property into each account and save logged user account
 
 const createUsernames = function (accounts) {
@@ -120,7 +146,6 @@ const createUsernames = function (accounts) {
     account.username = account.owner.toLowerCase().split(' ')[0];
   });
 };
-createUsernames(accounts);
 
 let loggedUserAccount;
 
@@ -177,6 +202,8 @@ const logOut = function () {
 loginButton.addEventListener('click', function (event) {
   event.preventDefault();
   closeInfoPanel();
+  savedMovements(accounts);
+  createUsernames(accounts);
   userPanel.classList.contains('visibility') ? welcomePanel() : logOut();
 });
 
