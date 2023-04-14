@@ -68,7 +68,7 @@ h1 {
   flex-direction: column;
   width: 450px;
   transform: translateX(40%);
-  margin-bottom: 30px;
+  bottom: 20px;
 }
 
 .confirmBtn {

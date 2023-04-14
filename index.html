@@ -29,7 +29,7 @@
             class="login__password"
           />
           <button class="btn btn--log">
-            Log <span class="LoginBtnType">In</span>
+            Log <span class="loginBtnType">In</span>
           </button>
         </form>
       </div>
@@ -98,7 +98,6 @@
         application works, please close info panel and use one of 4 fictitious
         created account below.
       </p>
-      <br />
       <table class="info__table">
         <tr>
           <td>user: marcin</td>
@@ -117,6 +116,13 @@
           <td>PIN: 1111</td>
         </tr>
       </table>
+      <br />
+      <p>
+        <em
+          >* Please take into account that the application uses local storage in
+          your browser where it saves all created accounts and transactions.</em
+        >
+      </p>
     </section>
     <main class="user-panel visibility hidden">
       <header>
@@ -133,7 +139,7 @@
       </aside>
       <section class="transfer">
         <h2>Internal Money Transfer</h2>
-        <form class="form">
+        <form class="form transfer_form">
           <input type="text" class="form__to" />
           <label>Transfer to</label>
           <input type="number" class="form__amount" />
@@ -143,7 +149,7 @@
       </section>
       <section class="request">
         <h2>Deposit / Withdrawal</h2>
-        <form class="form">
+        <form class="form deposit_form">
           <input type="text" class="deposit" />
           <label>Amount</label>
           <div class="icons">
@@ -191,7 +197,7 @@
       </section>
       <section class="close">
         <h2>Close account</h2>
-        <form class="form">
+        <form class="form close_form">
           <input type="text" class="close-user" />
           <label>User</label>
           <input type="password" maxlength="4" class="close-pin" />

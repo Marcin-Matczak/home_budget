@@ -7,6 +7,16 @@ export const closeInfoPanel = function () {
   select.userPanel.classList.remove(classNames.hidden);
 };
 
+// Login panel
+
+export const logOut = function () {
+  select.userPanel.classList.add(classNames.visibility);
+  select.loginButtonDescription.textContent = 'In';
+  select.welcomeInfo.textContent = 'Please Log In';
+  select.inputUserNameLogin.disabled =
+    select.inputPasswordLogin.disabled = false;
+};
+
 // Currency and date display format
 
 const date = new Intl.DateTimeFormat(navigator.language).format(new Date());
@@ -19,24 +29,6 @@ export const currFormat = function (value) {
   }).format(value);
 
   return format;
-};
-
-// Loading saved movements form created array with HTML
-
-export const savedMovements = function (accounts) {
-  accounts.forEach(function (account) {
-    account.movementsHTML = [];
-    account.movements.forEach(function (mov) {
-      const type = mov > 0 ? 'deposit' : 'withdrawal';
-      const html = `
-        <tr>
-          <td><i class="fa-solid fa-coins fa-xs"></i></td>
-            <td class = 'moveType-${type}'>${type}</td>
-            <td>${currFormat(mov)}</td>
-        </tr>`;
-      account.movementsHTML.push(html);
-    });
-  });
 };
 
 // Validations
@@ -71,4 +63,59 @@ export const validationInputs = function (
 
 export const validationData = function () {
   alert(alerts.generalValid);
+};
+
+// Display balance
+
+export const balance = function (account) {
+  const amount = account.movements.reduce((acc, mov) => acc + mov, 0);
+  select.currentBalance.textContent = currFormat(amount);
+  account.balance = amount;
+};
+
+// In/Out - summary
+
+export const transactionSummary = function (movements) {
+  const inTransaction = movements
+    .filter(mov => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  select.inSummary.textContent = currFormat(inTransaction);
+
+  const outTransaction = movements
+    .filter(mov => mov < 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  select.outSummary.textContent = currFormat(-outTransaction);
+};
+
+// Movements view
+
+export const renderMovements = function (account) {
+  select.movementsContainer.innerHTML = '';
+  account.movementsHTML.forEach(mov => {
+    select.movementsContainer.insertAdjacentHTML('afterbegin', mov);
+  });
+};
+
+export let transferType = {};
+
+export const renderTransfersType = function (amount) {
+  const deposithtml = `
+    <tr>
+    <td><i class="fa-solid fa-user fa-2xs"></i></td>
+      <td class = 'moveType-deposit'>deposit</td>
+      <td>${currFormat(amount)}</td>
+    </tr>
+  `;
+  const withdrawalhtml = `
+    <tr>
+    <td><i class="fa-solid fa-user fa-2xs"></i></td>
+      <td class = 'moveType-withdrawal'>withdrawal</td>
+      <td>${currFormat(-amount)}</td>
+    </tr>
+  `;
+  transferType = {
+    deposithtml,
+    withdrawalhtml,
+  };
+  return transferType;
 };

@@ -1,20 +1,21 @@
-import { select, classNames, movementsIcons, alerts } from './config.js';
+import { select, classNames, movementsIcons } from './config.js';
 import { accounts, getLocalStorage } from './model.js';
 import {
   closeInfoPanel,
   currFormat,
-  savedMovements,
   validationData,
   validationInputs,
+  logOut,
+  renderTransfersType,
+  transferType,
 } from './view.js';
+import {
+  updateUserPanelData,
+  setLocalStorage,
+  clearInputsForm,
+} from './helpers.js';
 
 getLocalStorage();
-
-// Data save in local storage
-
-const setLocalStorage = function () {
-  localStorage.setItem('accounts', JSON.stringify(accounts));
-};
 
 // Info panel
 
@@ -49,13 +50,10 @@ select.infoForm.addEventListener('submit', function (event) {
   )
     return;
   newAccount();
-  select.inputFirstName.value =
-    select.inputLastName.value =
-    select.inputSetupPin.value =
-      '';
+  clearInputsForm(select.infoForm);
   select.infoForm.classList.add(classNames.visibility);
   select.successInfo.classList.remove(classNames.hidden);
-  setLocalStorage();
+  setLocalStorage(accounts);
 });
 
 // Added username as property into each account and save logged user account
@@ -74,15 +72,23 @@ const loggedUser = function () {
   );
 };
 
-// Update amounts in user panel
+// Create html movements
 
-const updateUserPanelData = function (account) {
-  renderMovements(account);
-  balance(account);
-  transactionSummary(account.movements);
+const savedMovements = function (accounts) {
+  accounts.forEach(function (account) {
+    account.movementsHTML = [];
+    account.movements.forEach(function (mov) {
+      const type = mov > 0 ? 'deposit' : 'withdrawal';
+      const html = `
+        <tr>
+          <td><i class="fa-solid fa-coins fa-xs"></i></td>
+            <td class = 'moveType-${type}'>${type}</td>
+            <td>${currFormat(mov)}</td>
+        </tr>`;
+      account.movementsHTML.push(html);
+    });
+  });
 };
-
-// ----------- TO DO ---------------- //
 
 // Open user panel
 
@@ -93,8 +99,7 @@ const welcomePanel = function () {
     select.welcomeInfo.textContent = `Welcome back, ${
       loggedUserAccount.owner.split(' ')[0]
     }!`;
-    loggedUser(select.inputUserNameLogin.value);
-    select.inputUserNameLogin.value = select.inputPasswordLogin.value = '';
+    clearInputsForm(select.loginForm);
     select.inputPasswordLogin.blur();
     select.loginButtonDescription.textContent = 'Out';
     select.inputUserNameLogin.disabled =
@@ -108,14 +113,6 @@ const welcomePanel = function () {
 
 // Logout/Login - functionality
 
-const logOut = function () {
-  select.userPanel.classList.add(classNames.visibility);
-  select.loginButtonDescription.textContent = 'In';
-  select.welcomeInfo.textContent = 'Please Log In';
-  select.inputUserNameLogin.disabled =
-    select.inputPasswordLogin.disabled = false;
-};
-
 select.loginButton.addEventListener('click', function (event) {
   event.preventDefault();
   closeInfoPanel();
@@ -124,45 +121,8 @@ select.loginButton.addEventListener('click', function (event) {
   select.userPanel.classList.contains(classNames.visibility)
     ? welcomePanel()
     : logOut();
-  setLocalStorage();
+  setLocalStorage(accounts);
 });
-
-// Display balance
-
-const balance = function (account) {
-  const amount = account.movements.reduce((acc, mov) => acc + mov, 0);
-  select.currentBalance.textContent = currFormat(amount);
-  account.balance = amount;
-};
-
-// In/Out - summary
-
-const transactionSummary = function (movements) {
-  const inTransaction = movements
-    .filter(mov => mov > 0)
-    .reduce((acc, mov) => acc + mov, 0);
-  select.inSummary.textContent = currFormat(inTransaction);
-
-  const outTransaction = movements
-    .filter(mov => mov < 0)
-    .reduce((acc, mov) => acc + mov, 0);
-  select.outSummary.textContent = currFormat(-outTransaction);
-};
-
-// Movements view
-
-let iconType;
-
-const clearMovements = function () {
-  select.movementsContainer.innerHTML = '';
-};
-
-const renderMovements = function (account) {
-  clearMovements();
-  account.movementsHTML.forEach(mov => {
-    select.movementsContainer.insertAdjacentHTML('afterbegin', mov);
-  });
-};
 
 // Internal Money Transfer
 
@@ -177,26 +137,13 @@ const InternalMoneyTransfer = function () {
     loggedUserAccount.balance >= amount &&
     reciverAccount?.username !== loggedUserAccount.username
   ) {
-    const deposithtml = `
-    <tr>
-    <td><i class="fa-solid fa-user fa-2xs"></i></td>
-      <td class = 'moveType-deposit'>deposit</td>
-      <td>${currFormat(amount)}</td>
-    </tr>
-  `;
-    const withdrawalhtml = `
-    <tr>
-    <td><i class="fa-solid fa-user fa-2xs"></i></td>
-      <td class = 'moveType-withdrawal'>withdrawal</td>
-      <td>${currFormat(-amount)}</td>
-    </tr>
-  `;
+    renderTransfersType(amount);
     loggedUserAccount.movements.push(-amount);
-    loggedUserAccount.movementsHTML.push(withdrawalhtml);
+    loggedUserAccount.movementsHTML.push(transferType.withdrawalhtml);
     updateUserPanelData(loggedUserAccount);
     reciverAccount.movements.push(amount);
-    reciverAccount.movementsHTML.push(deposithtml);
-    select.inputTransferTo.value = select.inputTransferAmount.value = '';
+    reciverAccount.movementsHTML.push(transferType.deposithtml);
+    clearInputsForm(select.transferForm);
   } else {
     validationData();
   }
@@ -205,27 +152,29 @@ const InternalMoneyTransfer = function () {
 select.moneyTransferButton.addEventListener('click', function (event) {
   event.preventDefault();
   InternalMoneyTransfer();
-  setLocalStorage();
+  setLocalStorage(accounts);
 });
 
 // Deposit / Withdrawal
 
+let iconType;
+
 const depositMoney = function () {
   const amount = Number(select.inputDeposit.value);
   if (amount) {
-    const movValue = iconType === 'salary' ? amount : -amount;
-    const type = movValue > 0 ? 'deposit' : 'withdrawal';
+    const mov = iconType === 'salary' ? amount : -amount;
+    const type = mov > 0 ? 'deposit' : 'withdrawal';
     const html = `
     <tr>
     <td>${movementsIcons.get(iconType)}</td>
       <td class = 'moveType-${type}'>${type}</td>
-      <td>${currFormat(movValue)}</td>
+      <td>${currFormat(mov)}</td>
     </tr>
   `;
-    loggedUserAccount.movements.push(movValue);
+    loggedUserAccount.movements.push(mov);
     loggedUserAccount.movementsHTML.push(html);
     updateUserPanelData(loggedUserAccount);
-    select.inputDeposit.value = '';
+    clearInputsForm(select.depositForm);
     iconType = '';
   } else {
     validationData();
@@ -235,7 +184,7 @@ const depositMoney = function () {
 select.depositButton.addEventListener('click', function (event) {
   event.preventDefault();
   depositMoney();
-  setLocalStorage();
+  setLocalStorage(accounts);
 });
 
 // Deposit / Withdrawal - icons
@@ -260,7 +209,7 @@ const closeAccount = function () {
       accounts.indexOf(accounts.find(account => account.pin === userPin)),
       1
     );
-    select.closeUserInput.value = select.closePinInput.value = '';
+    clearInputsForm(select.closeForm);
     logOut();
   } else {
     validationData();
@@ -270,5 +219,5 @@ const closeAccount = function () {
 select.closeAccountBtn.addEventListener('click', function (event) {
   event.preventDefault();
   closeAccount();
-  setLocalStorage();
+  setLocalStorage(accounts);
 });
