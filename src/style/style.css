@@ -98,7 +98,7 @@ main {
   display: grid;
   padding: 20px;
   background-color: rgb(43, 41, 44);
-  grid-template-columns: repeat(5, 170px);
+  grid-template-columns: repeat(5, 180px);
   grid-template-rows: repeat(7, 80px); 
   gap: 10px 10px;
   border-radius: 10px;
@@ -320,4 +320,8 @@ footer p {
 
 .descMov {
   font-size: 14px;
+}
+
+.movements__table td:nth-child(2) {
+  width: 0;
 }

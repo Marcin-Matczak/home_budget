@@ -102,6 +102,7 @@ export const renderTransfersType = function (amount, sender, reciver) {
   const deposithtml = `
     <tr>
     <td><i class="fa-solid fa-user fa-2xs"></i></td>
+    <td class='descMov'>${select.balanceDate.textContent}</td>
       <td class = 'moveType-deposit'>deposit - <span class='descMov'>${sender}</span></td>
       <td>${currFormat(amount)}</td>
     </tr>
@@ -109,6 +110,7 @@ export const renderTransfersType = function (amount, sender, reciver) {
   const withdrawalhtml = `
     <tr>
     <td><i class="fa-solid fa-user fa-2xs"></i></td>
+    <td class='descMov'>${select.balanceDate.textContent}</td>
       <td class = 'moveType-withdrawal'>withdrawal - <span class='descMov'>${reciver}</span></td>
       <td>${currFormat(-amount)}</td>
     </tr>

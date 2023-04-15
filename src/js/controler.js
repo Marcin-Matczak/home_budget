@@ -77,7 +77,7 @@ const loggedUser = function () {
   );
 };
 
-// Create html movements
+// Create html movements for existing fictitious accounts
 
 const savedMovements = function (accounts) {
   accounts.forEach(function (account) {
@@ -87,6 +87,7 @@ const savedMovements = function (accounts) {
       const html = `
         <tr>
           <td><i class="fa-solid fa-coins fa-xs"></i></td>
+          <td class='descMov'>${select.balanceDate.textContent}</td>
             <td class = 'moveType-${type}'>${type}</td>
             <td>${currFormat(mov)}</td>
         </tr>`;
@@ -179,6 +180,7 @@ const depositMoney = function () {
     const html = `
     <tr>
     <td>${movementsIcons.get(iconType)}</td>
+    <td class='descMov'>${select.balanceDate.textContent}</td>
       <td class = 'moveType-${type}'>${type} - <span class='descMov'>${iconDescription}</span></td>
       <td>${currFormat(mov)}</td>
     </tr>
