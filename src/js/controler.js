@@ -1,4 +1,4 @@
-import { select, classNames, movementsIcons } from './config.js';
+import { select, classNames, movementsIcons, alerts } from './config.js';
 import { accounts, getLocalStorage } from './model.js';
 import {
   closeInfoPanel,
@@ -28,6 +28,11 @@ let newUserAccount;
 
 const newAccount = function () {
   const owner = select.inputFirstName.value + ' ' + select.inputLastName.value;
+  if (accounts.find(acc => acc.owner === owner)) {
+    validationData(alerts.existingAccount);
+    return;
+  }
+
   const pin = Number(select.inputSetupPin.value);
   newUserAccount = {
     owner,
@@ -36,6 +41,11 @@ const newAccount = function () {
     movementsHTML: [],
   };
   accounts.push(newUserAccount);
+  createUsernames(accounts);
+  clearInputsForm(select.infoForm);
+  select.infoForm.classList.add(classNames.visibility);
+  select.successInfo.classList.remove(classNames.hidden);
+  setLocalStorage(accounts);
 };
 
 select.infoForm.addEventListener('submit', function (event) {
@@ -49,10 +59,6 @@ select.infoForm.addEventListener('submit', function (event) {
   )
     return;
   newAccount();
-  clearInputsForm(select.infoForm);
-  select.infoForm.classList.add(classNames.visibility);
-  select.successInfo.classList.remove(classNames.hidden);
-  setLocalStorage(accounts);
 });
 
 // Added username as property into each account and save logged user account
@@ -104,7 +110,7 @@ const welcomePanel = function () {
     select.inputUserNameLogin.disabled =
       select.inputPasswordLogin.disabled = true;
   } else {
-    validationData();
+    validationData(alerts.wrongLoginData);
     return;
   }
   updateUserPanelData(loggedUserAccount);
@@ -115,7 +121,6 @@ const welcomePanel = function () {
 select.loginButton.addEventListener('click', function (event) {
   event.preventDefault();
   closeInfoPanel();
-  createUsernames(accounts);
   select.userPanel.classList.contains(classNames.visibility)
     ? welcomePanel()
     : logOut();
@@ -143,7 +148,8 @@ const InternalMoneyTransfer = function () {
     reciverAccount.movementsHTML.push(transferType.deposithtml);
     clearInputsForm(select.transferForm);
   } else {
-    validationData();
+    clearInputsForm(select.transferForm);
+    validationData(alerts.wrongReciverData);
   }
 };
 
@@ -164,6 +170,11 @@ const depositMoney = function () {
   )[0];
   if (amount) {
     const mov = iconType === 'salary' ? amount : -amount;
+    if (-mov > loggedUserAccount.balance) {
+      clearInputsForm(select.depositForm);
+      validationData(alerts.lackMoney);
+      return;
+    }
     const type = mov > 0 ? 'deposit' : 'withdrawal';
     const html = `
     <tr>
@@ -177,7 +188,7 @@ const depositMoney = function () {
     updateUserPanelData(loggedUserAccount);
     clearInputsForm(select.depositForm);
   } else {
-    validationData();
+    validationData(alerts.incorrectValue);
   }
 };
 
@@ -212,7 +223,8 @@ const closeAccount = function () {
     clearInputsForm(select.closeForm);
     logOut();
   } else {
-    validationData();
+    clearInputsForm(select.closeForm);
+    validationData(alerts.wrongLoginData);
   }
 };
 
@@ -224,6 +236,7 @@ select.closeAccountBtn.addEventListener('click', function (event) {
 
 const init = function () {
   if (localStorage.getItem('budget_app') === null) {
+    createUsernames(accounts);
     savedMovements(accounts);
     setLocalStorage(accounts);
     getLocalStorage();

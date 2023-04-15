@@ -62,5 +62,11 @@ export const alerts = {
   userData:
     'Wrong data! Remember that the first and last name should start with a capital and cannot contain whitespace or special signs.',
   userPIN: 'Incorrect PIN. Please enter a four-digit number.',
-  generalValid: 'You entered wrong data. Please try agin.',
+  existingAccount: 'User  already exists!',
+  wrongLoginData:
+    'You have entered an incorrect login or password. Remember that the login is a lowercase name and the pin consists of 4 digits.',
+  wrongReciverData:
+    'Incorrect receiver name or insufficient funds on the account.',
+  incorrectValue: 'Incorrect value!',
+  lackMoney: 'Insufficient funds on the account.',
 };

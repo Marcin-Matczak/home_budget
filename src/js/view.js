@@ -61,8 +61,8 @@ export const validationInputs = function (
   }
 };
 
-export const validationData = function () {
-  alert(alerts.generalValid);
+export const validationData = function (info) {
+  alert(info);
 };
 
 // Display balance
