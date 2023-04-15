@@ -15,8 +15,6 @@ import {
   clearInputsForm,
 } from './helpers.js';
 
-getLocalStorage();
-
 // Info panel
 
 select.closeInfoButton.addEventListener('click', function (event) {
@@ -35,6 +33,7 @@ const newAccount = function () {
     owner,
     pin,
     movements: [],
+    movementsHTML: [],
   };
   accounts.push(newUserAccount);
 };
@@ -77,7 +76,7 @@ const loggedUser = function () {
 const savedMovements = function (accounts) {
   accounts.forEach(function (account) {
     account.movementsHTML = [];
-    account.movements.forEach(function (mov) {
+    account?.movements.forEach(function (mov) {
       const type = mov > 0 ? 'deposit' : 'withdrawal';
       const html = `
         <tr>
@@ -116,7 +115,6 @@ const welcomePanel = function () {
 select.loginButton.addEventListener('click', function (event) {
   event.preventDefault();
   closeInfoPanel();
-  savedMovements(accounts);
   createUsernames(accounts);
   select.userPanel.classList.contains(classNames.visibility)
     ? welcomePanel()
@@ -137,7 +135,7 @@ const InternalMoneyTransfer = function () {
     loggedUserAccount.balance >= amount &&
     reciverAccount?.username !== loggedUserAccount.username
   ) {
-    renderTransfersType(amount);
+    renderTransfersType(amount, loggedUserAccount.owner, reciverAccount.owner);
     loggedUserAccount.movements.push(-amount);
     loggedUserAccount.movementsHTML.push(transferType.withdrawalhtml);
     updateUserPanelData(loggedUserAccount);
@@ -161,13 +159,16 @@ let iconType;
 
 const depositMoney = function () {
   const amount = Number(select.inputDeposit.value);
+  const iconDescription = [...movementsIcons].find(arr =>
+    arr.includes(iconType)
+  )[0];
   if (amount) {
     const mov = iconType === 'salary' ? amount : -amount;
     const type = mov > 0 ? 'deposit' : 'withdrawal';
     const html = `
     <tr>
     <td>${movementsIcons.get(iconType)}</td>
-      <td class = 'moveType-${type}'>${type}</td>
+      <td class = 'moveType-${type}'>${type} - <span class='descMov'>${iconDescription}</span></td>
       <td>${currFormat(mov)}</td>
     </tr>
   `;
@@ -175,7 +176,6 @@ const depositMoney = function () {
     loggedUserAccount.movementsHTML.push(html);
     updateUserPanelData(loggedUserAccount);
     clearInputsForm(select.depositForm);
-    iconType = '';
   } else {
     validationData();
   }
@@ -221,3 +221,15 @@ select.closeAccountBtn.addEventListener('click', function (event) {
   closeAccount();
   setLocalStorage(accounts);
 });
+
+const init = function () {
+  if (localStorage.getItem('budget_app') === null) {
+    savedMovements(accounts);
+    setLocalStorage(accounts);
+    getLocalStorage();
+  } else {
+    getLocalStorage();
+  }
+};
+
+init();

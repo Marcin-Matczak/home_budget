@@ -29,7 +29,7 @@ export let accounts = [account1, account2, account3, account4];
 // Get data from local storage
 
 export const getLocalStorage = function () {
-  const data = JSON.parse(localStorage.getItem('accounts'));
+  const data = JSON.parse(localStorage.getItem('budget_app'));
   if (!data) return;
   accounts = data;
 };

@@ -11,7 +11,7 @@ export const updateUserPanelData = function (account) {
 // Data save in local storage
 
 export const setLocalStorage = function (data) {
-  localStorage.setItem('accounts', JSON.stringify(data));
+  localStorage.setItem('budget_app', JSON.stringify(data));
 };
 
 // Clear inputs

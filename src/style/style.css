@@ -315,3 +315,9 @@ footer p {
   top: 70px;
   right: 20px;
 }
+
+/* Rendering movments */
+
+.descMov {
+  font-size: 14px;
+}
