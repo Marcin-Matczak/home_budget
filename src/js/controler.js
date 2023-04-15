@@ -1,7 +1,7 @@
 import { select, classNames, movementsIcons, alerts } from './config.js';
 import { accounts, getLocalStorage } from './model.js';
 import {
-  closeInfoPanel,
+  toggleVisibility,
   currFormat,
   validationData,
   validationInputs,
@@ -19,7 +19,12 @@ import {
 
 select.closeInfoButton.addEventListener('click', function (event) {
   event.preventDefault();
-  closeInfoPanel();
+  select.infoPanel.classList.add(classNames.visibility);
+});
+
+select.infoButton.addEventListener('click', function (event) {
+  event.preventDefault();
+  select.infoPanel.classList.toggle(classNames.visibility);
 });
 
 // New account
@@ -101,7 +106,7 @@ const savedMovements = function (accounts) {
 const welcomePanel = function () {
   loggedUser();
   if (loggedUserAccount?.pin === Number(select.inputPasswordLogin.value)) {
-    select.userPanel.classList.remove(classNames.visibility);
+    toggleVisibility();
     select.welcomeInfo.textContent = `Welcome back, ${
       loggedUserAccount.owner.split(' ')[0]
     }!`;
@@ -121,8 +126,7 @@ const welcomePanel = function () {
 
 select.loginButton.addEventListener('click', function (event) {
   event.preventDefault();
-  closeInfoPanel();
-  select.userPanel.classList.contains(classNames.visibility)
+  select.userPanel.classList.contains(classNames.hidden)
     ? welcomePanel()
     : logOut();
   setLocalStorage(accounts);

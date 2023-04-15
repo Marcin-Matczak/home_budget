@@ -1,6 +1,7 @@
 // Elements
 
 export const select = {
+  infoButton: document.querySelector('.infoBtn'),
   closeInfoButton: document.querySelector('.info-closeBtn'),
   infoPanel: document.querySelector('.info'),
   loginForm: document.querySelector('.login'),

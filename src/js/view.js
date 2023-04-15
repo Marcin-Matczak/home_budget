@@ -1,16 +1,24 @@
 import { select, classNames, alerts } from './config.js';
 
-// Info panel
+// Toggle content visibility
 
-export const closeInfoPanel = function () {
-  select.infoPanel.classList.add(classNames.visibility);
-  select.userPanel.classList.remove(classNames.hidden);
+export const toggleVisibility = function () {
+  if (select.userPanel.classList.contains(classNames.hidden)) {
+    select.infoPanel.classList.add(classNames.hidden);
+    select.infoButton.classList.add(classNames.hidden);
+    select.userPanel.classList.remove(classNames.hidden);
+  } else {
+    select.userPanel.classList.add(classNames.hidden);
+    select.infoButton.classList.remove(classNames.hidden);
+    select.infoPanel.classList.add(classNames.visibility);
+    select.infoPanel.classList.remove(classNames.hidden);
+  }
 };
 
 // Login panel
 
 export const logOut = function () {
-  select.userPanel.classList.add(classNames.visibility);
+  toggleVisibility();
   select.loginButtonDescription.textContent = 'In';
   select.welcomeInfo.textContent = 'Please Log In';
   select.inputUserNameLogin.disabled =

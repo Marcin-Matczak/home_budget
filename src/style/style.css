@@ -316,6 +316,14 @@ footer p {
   right: 20px;
 }
 
+.infoBtn i {
+  position: absolute;
+  top:85px;
+  left: 20px;
+  font-size: 30px;
+  cursor: pointer;
+}
+
 /* Rendering movments */
 
 .descMov {
