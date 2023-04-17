@@ -91,7 +91,7 @@ const savedMovements = function (accounts) {
       const type = mov > 0 ? 'deposit' : 'withdrawal';
       const html = `
         <tr>
-          <td><i class="fa-solid fa-coins fa-xs"></i></td>
+          <td><i class="fa-solid fa-coins fa-lg"></i></td>
           <td class='descMov'>${select.balanceDate.textContent}</td>
             <td class = 'moveType-${type}'>${type}</td>
             <td>${currFormat(mov)}</td>

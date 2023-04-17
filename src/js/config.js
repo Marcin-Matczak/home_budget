@@ -46,16 +46,16 @@ export const classNames = {
 
 export const movementsIcons = new Map();
 movementsIcons
-  .set('salary', '<i class="fa-solid fa-sack-dollar fa-xs"></i>')
-  .set('entertainment', '<i class="fa-solid fa-music fa-xs"></i>')
-  .set('vehicles', '<i class="fa-solid fa-solid fa-car fa-xs"></i>')
-  .set('fees', '<i class="fa-solid fa-file-invoice-dollar fa-xs"</i>')
-  .set('clothes', '<i class="fa-sharp fa-solid fa-shirt fa-xs"></i>')
-  .set('home', '<i class="fa-solid fa-house fa-xs"></i>')
-  .set('medication', '<i class="fa-solid fa-heart-pulse fa-xs"></i>')
-  .set('education', '<i class="fa-solid fa-user-graduate fa-xs"></i>')
-  .set('food', '<i class="fa-solid fa-utensils fa-xs"></i>')
-  .set('other', '<i class="fa-solid fa-coins fa-xs"></i>');
+  .set('salary', '<i class="fa-solid fa-sack-dollar fa-lg"></i>')
+  .set('entertainment', '<i class="fa-solid fa-music fa-lg"></i>')
+  .set('vehicles', '<i class="fa-solid fa-solid fa-car fa-lg"></i>')
+  .set('fees', '<i class="fa-solid fa-file-invoice-dollar fa-lg"</i>')
+  .set('clothes', '<i class="fa-sharp fa-solid fa-shirt fa-lg"></i>')
+  .set('home', '<i class="fa-solid fa-house fa-lg"></i>')
+  .set('medication', '<i class="fa-solid fa-heart-pulse fa-lg"></i>')
+  .set('education', '<i class="fa-solid fa-user-graduate fa-lg"></i>')
+  .set('food', '<i class="fa-solid fa-utensils fa-lg"></i>')
+  .set('other', '<i class="fa-solid fa-coins fa-lg"></i>');
 
 // Alerts
 

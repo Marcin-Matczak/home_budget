@@ -1,32 +1,40 @@
+/* Variables */
+
+:root{
+  --main-color: 33, 33, 33;
+  --blur-effect: blur(8px);
+  --font-red: 137, 0, 0;
+  --font-green: 43, 107, 48;
+  --info-color: 121, 172, 255;
+  --radius: 10px;
+  --circle: 50%;
+  
+}
+
 /* Global */
 
 * {
+  box-sizing: inherit;
   margin: 0;
   padding: 0;
-  box-sizing: inherit;
-}
-
-html, body { 
-  height: 100%; 
 }
 
 body {
   background-color: rgb(246, 246, 246);
+  color: rgb(var(--main-color));
   font-family: 'Poppins', sans-serif;
   line-height: 1.2;
   overflow: hidden;
-  color: #212121;
 }
 
 /* Navigation */
 
 nav {
-  width: 100%;
-  height: 50px;
+  align-items: center;
+  backdrop-filter: var(--blur-effect);
   background-color: rgb(111, 95, 144, 0.8);
   display: flex;
-  align-items: center;
-  backdrop-filter: blur(8px);
+  height: 50px;
 }
 
 h1 {
@@ -35,93 +43,19 @@ h1 {
 }
 
 .login {
-  padding: 0 20px;
   display: flex;
-  flex-direction: row;
+  padding: 0 20px;
 }
 
 .login > * {
-  margin-left: 5px;
+  margin-left: 8px;
 }
 
-/* Info - new account */
-
-.info {
-  width: 680px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-  background:rgba(121, 172, 255, 0.5);
-  backdrop-filter: blur(8px);
-  padding: 30px;
-  border-radius: 20px; 
-  opacity: 100;
-  transition: opacity 1s;
+.btn--log {
+  margin-left: 20px;
 }
 
-.info-closeBtn {
-  position: absolute;
-  right: 15px;
-  top: 20px;
-  border-radius: 50%;
-  border: none;
-  cursor: pointer;
-}
-
-.info__form {
-  display: flex;
-  flex-direction: column;
-  width: 450px;
-  transform: translateX(50%);
-  bottom: 20px;
-}
-
-.confirmBtn {
-  position: relative;
-  left: 180px;
-}
-
-.info__table tr {
-  background-color: inherit;
-}
-
-.info__table td {
-  padding-left: 30px;
-}
-
-.successInfo {
-  position: absolute;
-  top: 47%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-  font-size: 26px;
-}
-
-/* Main content */
-
-main {
-  display: grid;
-  padding: 20px;
-  background-color: rgb(33, 33, 33, 0.8);
-  backdrop-filter: blur(8px);
-  box-shadow: 0px 8px 24px 0 rgb(0, 0, 0, 0.6);
-  grid-template-columns: repeat(5, 180px);
-  grid-template-rows: repeat(7, 80px); 
-  gap: 10px 10px;
-  border-radius: 10px;
-  position: absolute;
-  top: calc(50% + 50px);
-  left: 50%;
-  transform: translate(-50%,-50%);
-  opacity: 100;
-  transition: opacity 1s;
-}
-
-main > * {
-  border-radius: 5px;
-  padding: 10px 20px;
-}
+/* Displaying classes*/
 
 .visibility {
   opacity: 0;
@@ -131,15 +65,120 @@ main > * {
   display: none;
 }
 
+/* Info button */
+
+.infoBtn {
+  animation-delay: 0.3s;
+  animation-duration: 0.5s;
+  border: none;
+  border-radius: var(--circle);
+  cursor: pointer;
+  font-size: 16px;
+  left: 20px;
+  position: absolute;
+  transition: background.0.3s;
+  top:85px;
+}
+
+.infoBtn:hover {
+  animation-name: jump-icon ;
+  animation-timing-function: ease;
+  background: rgba(var(--info-color));
+}
+
+@keyframes jump-icon {
+  0%   { transform: translateY(0)}
+  50%  { transform: translateY(-15px)}
+  100% { transform: translateY(0)}
+}
+
+/* Info - new account */
+
+.info {
+  backdrop-filter: var(--blur-effect);
+  background:rgba(var(--info-color), 0.5);
+  border-radius: var(--radius); 
+  width: 680px;
+  left: 50%;
+  padding: 30px;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  transition: opacity 1s;
+}
+
+.info-closeBtn {
+  border: none;
+  border-radius: var(--circle);
+  cursor: pointer;
+  position: absolute;
+  right: 15px;
+  top: 20px;
+  transition: all 0.3s;
+}
+
+.info-closeBtn:hover {
+  background: rgba(var(--info-color));
+  transform: scale(1.2);
+}
+
+.info__form {
+  bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(50%);
+  width: 450px;
+}
+
+.confirmBtn {
+  left: 180px;
+  position: relative;
+}
+
+.info__table td {
+  padding-left: 30px;
+}
+
+.successInfo {
+  font-size: 26px;
+  left: 50%;
+  position: absolute;
+  top: 47%;
+  transform: translate(-50%,-50%);
+}
+
+/* Main content */
+
+main {
+  background-color: rgb(var(--main-color), 0.7);
+  backdrop-filter: var(--blur-effect);
+  border-radius: var(--radius);
+  box-shadow: 0px 8px 24px 0 rgb(var(--main-color), 0.9);
+  display: grid;
+  gap: 10px 10px;
+  grid-template-columns: repeat(6, 180px);
+  grid-template-rows: repeat(7, 80px); 
+  left: 50%;
+  padding: 20px;
+  position: absolute;
+  top: calc(50% + 50px);
+  transform: translate(-50%,-50%);
+}
+
+main > * {
+  border-radius: var(--radius);
+  padding: 10px 20px;
+}
+
 /* Main content -- Header */
 
 header {
-  background-color:#7e9680;
-  grid-column: 1/6;
-  display: flex;
   align-items: center;
-  justify-content: space-between;
+  background-color:#7e9680;
+  display: flex;
   font-weight: 600;
+  grid-column: 1/7;
+  justify-content: space-between;
 }
 
 .balance {
@@ -152,33 +191,38 @@ header {
 
 /* Main content -- Movements */
 
+.descMov {
+  font-size: 14px;
+}
+
+.movements__table td:nth-child(2) {
+  width: 0;
+}
+
 .movements::-webkit-scrollbar {
-  width: 10px;
+  width: 13px;
 }
  
 .movements::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.3);
-  border-radius: 5px;
+  box-shadow: inset 0 0 6px rgb(var(--main-color), 0.3);
+  border-radius: var(--radius);
 }
  
 .movements::-webkit-scrollbar-thumb {
-  background-color: inherit;
-  border-radius: 5px;
+  border-radius: var(--radius);
   border: 1px solid rgba(255, 255, 255, 0.3);;
 }
 
 .movements {
-  grid-column: 1/4;
+  grid-column: 1/5;
   grid-row: 2/8;
-  padding: 0;
-  overflow-y: scroll;
   overflow-x: hidden;
+  padding: 0;
   padding-right: 10px;
 }
 
 .movements__table {
   width: 100%;
-  border-radius: 5px;
 }
 
 .movements__table td {
@@ -186,7 +230,7 @@ header {
 }
 
 .movements_body{
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   text-align: center;
 }
@@ -203,26 +247,26 @@ header {
 }
 
 .moveType-withdrawal {
-  color: #890000;
+  color: rgb(var(--font-red));
 }
 
 /* Main content -- Forms */
 
 .transfer {
   background-color: #d87f81;
-  grid-column: 4/6;
+  grid-column: 5/7;
   grid-row: 2/4;
 }
 
 .request {
   background-color: #ae6378;
-  grid-column: 4/6;
+  grid-column: 5/7;
   grid-row: 4/6;
 }
 
 .close {
   background-color: #79616f;
-  grid-column: 4/6;
+  grid-column: 5/7;
   grid-row: 6/8;
 }
 
@@ -231,7 +275,7 @@ header {
 }
 
 section h2 {
-  margin-bottom: 12px;
+  margin-bottom: 17px;
 }
 
 .form > * {
@@ -239,55 +283,58 @@ section h2 {
 }
 
 input {
-  width: 50%;
-  text-align: center;
+  background: linear-gradient(to left, rgba(255,255,255, 0.3),rgba(255, 255, 255, 0.2));
+  border-radius: var(--radius);
   border: none;
-  border-radius: 18px;
-  padding: 2px;
-  box-shadow: 0px 8px 24px 0 rgb(0, 0, 0, 0.1);
-  background: linear-gradient(to left, rgba(255,255,255, 0.1),rgba(255, 255, 255, 0.2));
-  transition: box-shadow 0.3s;
+  box-shadow: 0px 8px 24px 0 rgb(var(--main-color), 0.1);
   cursor: text;
+  padding: 2px;
+  text-align: center;
+  transition: box-shadow 0.3s;
+  width: 50%;
+}
+
+label{
+  margin-left: 10px;
 }
 
 ::placeholder{
-  color: #212121;
+  color: rgb(var(--main-color));
 }
 
 input:focus {
   outline: solid 1px rgb(0, 0, 0, 0.4);;
 }
 
-button:hover,
+.btn:hover,
 input:hover {
   box-shadow: 0px 8px 24px 0 rgb(0, 0, 0, 0.4);
 }
 
 .icons {
-  margin-top:20px;
+  gap: 5px;
   display: grid;
   grid-template-columns: repeat(5, 30px);
   grid-template-rows: repeat(2, 30px); 
-  gap: 5px;
+  margin-top: 14px;
 }
 
 .icon{
+  background: rgb(0, 0, 0, 0.2);
   border: none;
   border-radius: 4px;
-  box-shadow: 0px 8px 24px 0 rgb(0, 0, 0, 0.1);
-  background: rgb(0, 0, 0, 0.1)
 }
 
 .icon:hover{
-  background-color: #960000;
+  background-color: rgb(var(--font-red));
 }
 
 .icon:hover:first-child{
-  background-color: #2b6b30;
+  background-color: rgb(var(--font-green));
 }
 
 .icon:focus{
-  background-color: #890000;
+  background-color: #7f0000;
 }
 
 .icon:focus:first-child{
@@ -297,12 +344,10 @@ input:hover {
 /* Main content -- Footer */
 
 footer {
-  grid-column: 1/6;
-  grid-row: auto;
   background-color: #c49c90;
   display: flex;
+  grid-column: 1/7;
   justify-content: space-around;
-  align-items: center;
 }
 
 footer p:nth-child(odd) {
@@ -314,123 +359,87 @@ footer p {
 }
 
 .inMovements {
-  font-weight: 900;
   color: #236023;
   font-size: 20px;
+  font-weight: 900;
 }
 
 .outMovements{
-  font-weight: 900;
-  color: #890000;
+  color: rgb(var(--font-red));
   font-size: 20px;
+  font-weight: 900;
 }
 
 /* Buttons */
 
 .btn {
-  width: 20%;
-  border-radius: 10px;
-  transition: box-shadow 0.5s, background 0.3s;
+  background-color: inherit;
+  border: 1px solid rgb(var(--main-color));
+  font-weight: 600;
   padding: 3px 2px;
-  font-weight: 400;
-  border: 1px solid #212121;
-  background-color: inherit
+  transition: box-shadow 0.5s, background 0.3s;
+  width: 20%;
 }
 
 .btn:hover {
-  cursor: pointer;
   background-color: #c49c90;
+  cursor: pointer;
 }
 
 .btn-form {
   position: absolute;
-  top: 70px;
   right: 20px;
-}
-
-.infoBtn{
-  position: absolute;
-  top:85px;
-  left: 20px;
-  font-size: 16px;
-  cursor: pointer;
-  animation-duration: 0.5s;
-  background-color: inherit;
-  border: none;
-  border-radius:50% ;
-}
-
-.infoBtn:hover {
-  animation-name: jump-icon ;
-  animation-timing-function: ease;
-}
-
-@keyframes jump-icon {
-  0%   { transform: translateY(0); }
-  50%  { transform: translateY(-15px); }
-  100% { transform: translateY(0); }
-}
-
-/* Rendering movments */
-
-.descMov {
-  font-size: 14px;
-}
-
-.movements__table td:nth-child(2) {
-  width: 0;
+  top: 70px;
 }
 
 /* Background dots */
 
 .bg {
-  position: absolute;
-  left: 0;
-  top: 0;
   height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
   width: 100%;
 }
 
 .bg__dot {
   background: linear-gradient(to left, rgba(144, 23, 177, 0.4),rgba(255, 0, 149, 0.4));
-  border-radius: 50%;
-  height: 10vh;
-  width: 10vh;
+  border-radius: var(--circle);
 }
 
 .bg__dot:nth-child(1) {
   animation: dotmove1 15s linear infinite;
-  position: absolute;
-  left: 1%;
-  top: 0px;
   height: 50vh;
+  left: 1%;
+  position: absolute;
+  top: 0px;
   width: 50vh;
 }
 
 .bg__dot:nth-child(2) {
   animation: dotmove2 25s linear infinite;
+  height: 30vh;
   position: absolute;
   right: 2%;
   top: 50%;
-  height: 30vh;
   width: 30vh;
 }
 
 .bg__dot:nth-child(3) {
   animation: dotmove3 30s linear infinite;
+  height: 50vh;
   position: absolute;
   right: 15%;
   top: 0px;
-  height: 50vh;
   width: 50vh;
 }
 
 .bg__dot:nth-child(4) {
   animation: dotmove4 20s linear infinite;
-  position: absolute;
-  left: 20%;
-  top: 50%;
   height: 30vh;
+  left: 20%;
+  position: absolute;
+  top: 50%;
   width: 30vh;
 }
 
