@@ -12,6 +12,10 @@ html, body {
 
 body {
   background-color: rgb(246, 246, 246);
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.2;
+  overflow: hidden;
+  color: #212121;
 }
 
 /* Navigation */
@@ -19,9 +23,10 @@ body {
 nav {
   width: 100%;
   height: 50px;
-  background-color: rgb(159, 213, 105);
+  background-color: rgb(111, 95, 144, 0.8);
   display: flex;
   align-items: center;
+  backdrop-filter: blur(8px);
 }
 
 h1 {
@@ -42,12 +47,13 @@ h1 {
 /* Info - new account */
 
 .info {
-  width: 620px;
+  width: 680px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
-  background-color: rgb(141, 204, 255);
+  background:rgba(121, 172, 255, 0.5);
+  backdrop-filter: blur(8px);
   padding: 30px;
   border-radius: 20px; 
   opacity: 100;
@@ -67,7 +73,7 @@ h1 {
   display: flex;
   flex-direction: column;
   width: 450px;
-  transform: translateX(40%);
+  transform: translateX(50%);
   bottom: 20px;
 }
 
@@ -76,7 +82,7 @@ h1 {
   left: 180px;
 }
 
-.info__table  {
+.info__table tr {
   background-color: inherit;
 }
 
@@ -97,7 +103,9 @@ h1 {
 main {
   display: grid;
   padding: 20px;
-  background-color: rgb(43, 41, 44);
+  background-color: rgb(33, 33, 33, 0.8);
+  backdrop-filter: blur(8px);
+  box-shadow: 0px 8px 24px 0 rgb(0, 0, 0, 0.6);
   grid-template-columns: repeat(5, 180px);
   grid-template-rows: repeat(7, 80px); 
   gap: 10px 10px;
@@ -126,7 +134,7 @@ main > * {
 /* Main content -- Header */
 
 header {
-  background-color:rgb(255 164 164);
+  background-color:#7e9680;
   grid-column: 1/6;
   display: flex;
   align-items: center;
@@ -160,7 +168,6 @@ header {
 }
 
 .movements {
-  background-color: inherit;
   grid-column: 1/4;
   grid-row: 2/8;
   padding: 0;
@@ -171,7 +178,6 @@ header {
 
 .movements__table {
   width: 100%;
-  border: 1px solid rgb(246, 246, 246);
   border-radius: 5px;
 }
 
@@ -186,36 +192,36 @@ header {
 }
 
 .movements__table tr:nth-child(odd) {
-  background-color: rgb(133, 133, 133);
+  background-color: rgb(189, 189, 189, 0.4);
 }
 .movements__table tr:nth-child(even) {
-  background-color: rgb(155, 155, 155);
+  background-color: rgb(158, 158, 158, 0.8);
 }
 
 .moveType-deposit {
-  color: #1e701e;
+  color: #236023;
 }
 
 .moveType-withdrawal {
-  color: #a80000;
+  color: #890000;
 }
 
 /* Main content -- Forms */
 
 .transfer {
-  background-color: rgb(192, 148, 233);
+  background-color: #d87f81;
   grid-column: 4/6;
   grid-row: 2/4;
 }
 
 .request {
-  background-color: rgb(222, 184, 135);
+  background-color: #ae6378;
   grid-column: 4/6;
   grid-row: 4/6;
 }
 
 .close {
-  background-color: gray;
+  background-color: #79616f;
   grid-column: 4/6;
   grid-row: 6/8;
 }
@@ -236,8 +242,25 @@ input {
   width: 50%;
   text-align: center;
   border: none;
-  border-radius: 3px;
+  border-radius: 18px;
   padding: 2px;
+  box-shadow: 0px 8px 24px 0 rgb(0, 0, 0, 0.1);
+  background: linear-gradient(to left, rgba(255,255,255, 0.1),rgba(255, 255, 255, 0.2));
+  transition: box-shadow 0.3s;
+  cursor: text;
+}
+
+::placeholder{
+  color: #212121;
+}
+
+input:focus {
+  outline: solid 1px rgb(0, 0, 0, 0.4);;
+}
+
+button:hover,
+input:hover {
+  box-shadow: 0px 8px 24px 0 rgb(0, 0, 0, 0.4);
 }
 
 .icons {
@@ -250,22 +273,25 @@ input {
 
 .icon{
   border: none;
+  border-radius: 4px;
+  box-shadow: 0px 8px 24px 0 rgb(0, 0, 0, 0.1);
+  background: rgb(0, 0, 0, 0.1)
 }
 
 .icon:hover{
-  background-color: #d11e1e;
+  background-color: #960000;
 }
 
 .icon:hover:first-child{
-  background-color: #00ac00;
+  background-color: #2b6b30;
 }
 
 .icon:focus{
-  background-color: #a80000;
+  background-color: #890000;
 }
 
 .icon:focus:first-child{
-  background-color: #1e701e;
+  background-color: #236023;
 }
 
 /* Main content -- Footer */
@@ -273,7 +299,7 @@ input {
 footer {
   grid-column: 1/6;
   grid-row: auto;
-  background-color: rgb(209, 238, 181);
+  background-color: #c49c90;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -289,13 +315,13 @@ footer p {
 
 .inMovements {
   font-weight: 900;
-  color: green;
+  color: #236023;
   font-size: 20px;
 }
 
 .outMovements{
   font-weight: 900;
-  color: #ff3232;
+  color: #890000;
   font-size: 20px;
 }
 
@@ -304,10 +330,16 @@ footer p {
 .btn {
   width: 20%;
   border-radius: 10px;
+  transition: box-shadow 0.5s, background 0.3s;
+  padding: 3px 2px;
+  font-weight: 400;
+  border: 1px solid #212121;
+  background-color: inherit
 }
 
 .btn:hover {
   cursor: pointer;
+  background-color: #c49c90;
 }
 
 .btn-form {
@@ -316,12 +348,27 @@ footer p {
   right: 20px;
 }
 
-.infoBtn i {
+.infoBtn{
   position: absolute;
   top:85px;
   left: 20px;
-  font-size: 30px;
+  font-size: 16px;
   cursor: pointer;
+  animation-duration: 0.5s;
+  background-color: inherit;
+  border: none;
+  border-radius:50% ;
+}
+
+.infoBtn:hover {
+  animation-name: jump-icon ;
+  animation-timing-function: ease;
+}
+
+@keyframes jump-icon {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-15px); }
+  100% { transform: translateY(0); }
 }
 
 /* Rendering movments */
@@ -332,4 +379,93 @@ footer p {
 
 .movements__table td:nth-child(2) {
   width: 0;
+}
+
+/* Background dots */
+
+.bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.bg__dot {
+  background: linear-gradient(to left, rgba(144, 23, 177, 0.4),rgba(255, 0, 149, 0.4));
+  border-radius: 50%;
+  height: 10vh;
+  width: 10vh;
+}
+
+.bg__dot:nth-child(1) {
+  animation: dotmove1 15s linear infinite;
+  position: absolute;
+  left: 1%;
+  top: 0px;
+  height: 50vh;
+  width: 50vh;
+}
+
+.bg__dot:nth-child(2) {
+  animation: dotmove2 25s linear infinite;
+  position: absolute;
+  right: 2%;
+  top: 50%;
+  height: 30vh;
+  width: 30vh;
+}
+
+.bg__dot:nth-child(3) {
+  animation: dotmove3 30s linear infinite;
+  position: absolute;
+  right: 15%;
+  top: 0px;
+  height: 50vh;
+  width: 50vh;
+}
+
+.bg__dot:nth-child(4) {
+  animation: dotmove4 20s linear infinite;
+  position: absolute;
+  left: 20%;
+  top: 50%;
+  height: 30vh;
+  width: 30vh;
+}
+
+@keyframes dotmove1 {
+  from{
+    transform: translateY(-50vh)
+  }
+  to{
+    transform: translateY(100vh)
+  }
+}
+
+@keyframes dotmove2 {
+  from{
+    transform: translateY(50vh)
+  }
+  to{
+    transform: translateY(-80vh)
+  }
+}
+
+@keyframes dotmove3 {
+  from{
+    transform: translateY(-50vh)
+  }
+  to{
+    transform: translateY(100vh)
+  }
+}
+
+@keyframes dotmove4 {
+  from{
+    transform: translateY(50vh)
+  }
+  to{
+    transform: translateY(-80vh)
+  }
 }
