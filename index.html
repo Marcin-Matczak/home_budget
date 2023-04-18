@@ -23,31 +23,29 @@
       <div class="bg__dot"></div>
       <div class="bg__dot"></div>
     </div>
-    <nav>
-      <h1 class="welcome">Please Log In</h1>
-      <div>
-        <form class="login">
-          <input type="text" placeholder="user" class="login__user" />
-          <input
-            type="password"
-            placeholder="PIN"
-            maxlength="4"
-            class="login__password"
-          />
-          <button class="btn btn--log">
-            Log <span class="loginBtnType">In</span>
-          </button>
-        </form>
-      </div>
+    <nav class="navigation">
+      <h1 class="navigation__welcome">Please Log In</h1>
+      <form class="form navigation__login">
+        <input type="text" placeholder="user" class="input form__user" />
+        <input
+          type="password"
+          placeholder="PIN"
+          maxlength="4"
+          class="input form__pin"
+        />
+        <button class="btn form__btn form__btn--login">
+          Log <span class="form__btn--logout">In</span>
+        </button>
+      </form>
     </nav>
-    <button class="infoBtn">
+    <button class="info-icon">
       <i class="fa-solid fa-circle-info fa-2xl"></i>
     </button>
     <section class="info">
-      <button class="info-closeBtn">
+      <button class="info__closeIcon">
         <i class="fa-solid fa-circle-xmark fa-2xl"></i>
       </button>
-      <h2>Welcome in home budget app!</h2>
+      <h2 class="info__title">Welcome in home budget app!</h2>
       <p>
         To create new account please fill the form below and confirm your data.
         Remember that the first and last name should start with a capital
@@ -68,30 +66,30 @@
           for="firstName"
           type="text"
           placeholder="first name"
-          class="firstName"
+          class="input form__firstName"
         />
-        <label id="firstName">Enter your name</label>
+        <label id="firstName" class="form__label">Enter your name</label>
         <input
           required
           minlength="2"
           id="lastName"
           type="text"
           placeholder="last name"
-          class="lastName"
+          class="input form__lastName"
         />
-        <label for="lastName">Enter your last name</label>
+        <label for="lastName" class="form__label">Enter your last name</label>
         <input
           required
           maxlength="4"
           id="setpin"
           type="password"
           placeholder="PIN"
-          class="setupPin"
+          class="input form__setup-pin"
         />
-        <label for="setpin">Setup your pin</label>
-        <button class="btn confirmBtn" type="submit">Confirm</button>
+        <label for="setpin" class="form__label">Setup your pin</label>
+        <button class="btn form__confirm" type="submit">Confirm</button>
       </form>
-      <div class="successInfo hidden">
+      <div class="info__success hidden">
         <strong>Success! Account created!</strong>
       </div>
       <br />
@@ -131,94 +129,122 @@
       </p>
     </section>
     <main class="user-panel hidden">
-      <header>
+      <header class="header">
         <div>
           <p>Current balance</p>
-          <p>As of <span class="date">28.03.2023</span></p>
+          <p>As of <span class="header__date">28.03.2023</span></p>
         </div>
-        <p class="balance"></p>
+        <p class="header__balance"></p>
       </header>
       <aside class="movements">
-        <table class="movements__table">
-          <tbody class="movements_body"></tbody>
+        <table class="table movements__table">
+          <tbody class="table__tbody"></tbody>
         </table>
       </aside>
       <section class="transfer">
-        <h2>Internal Money Transfer</h2>
-        <form class="form transfer_form">
-          <input type="text" class="form__to" />
-          <label>Transfer to</label>
-          <input type="number" class="form__amount" />
-          <label>Amount</label>
-          <button class="btn btn-form btn-transfer">Send</button>
+        <h2 class="user-panel__section-title">Internal Money Transfer</h2>
+        <form class="form transfer__form">
+          <input type="text" class="input form__to" />
+          <label class="form__label">Transfer to</label>
+          <input type="number" class="input form__amount" />
+          <label class="form__label">Amount</label>
+          <button class="btn btn__form btn__form--transfer">Send</button>
         </form>
       </section>
       <section class="request">
-        <h2>Deposit / Withdrawal</h2>
-        <form class="form deposit_form">
-          <input type="text" class="deposit" />
-          <label>Amount</label>
+        <h2 class="user-panel__section-title">Deposit / Withdrawal</h2>
+        <form class="form request__form">
+          <input type="text" class="input form__deposit" />
+          <label class="form__label">Amount</label>
           <div class="icons">
-            <button class="icon" aria-label="salary" data-balloon-pos="up">
+            <button
+              class="icons__icon"
+              aria-label="salary"
+              data-balloon-pos="up"
+            >
               <i class="fa-solid fa-sack-dollar fa-xl"></i>
             </button>
             <button
-              class="icon"
+              class="icons__icon"
               aria-label="entertainment"
               data-balloon-pos="up"
             >
               <i class="fa-solid fa-music fa-xl"></i>
             </button>
-            <button class="icon" aria-label="vehicles" data-balloon-pos="up">
+            <button
+              class="icons__icon"
+              aria-label="vehicles"
+              data-balloon-pos="up"
+            >
               <i class="fa-solid fa-solid fa-car fa-xl"></i>
             </button>
-            <button class="icon" aria-label="fees" data-balloon-pos="up">
+            <button class="icons__icon" aria-label="fees" data-balloon-pos="up">
               <i class="fa-solid fa-file-invoice-dollar fa-xl"></i>
             </button>
-            <button class="icon" aria-label="clothes" data-balloon-pos="right">
+            <button
+              class="icons__icon"
+              aria-label="clothes"
+              data-balloon-pos="right"
+            >
               <i class="fa-sharp fa-solid fa-shirt fa-xl"></i>
             </button>
-            <button class="icon" aria-label="home" data-balloon-pos="down">
+            <button
+              class="icons__icon"
+              aria-label="home"
+              data-balloon-pos="down"
+            >
               <i class="fa-solid fa-house fa-xl"></i>
             </button>
             <button
-              class="icon"
+              class="icons__icon"
               aria-label="medication"
               data-balloon-pos="down"
             >
               <i class="fa-solid fa-heart-pulse fa-xl"></i>
             </button>
-            <button class="icon" aria-label="education" data-balloon-pos="down">
+            <button
+              class="icons__icon"
+              aria-label="education"
+              data-balloon-pos="down"
+            >
               <i class="fa-solid fa-user-graduate fa-xl"></i>
             </button>
-            <button class="icon" aria-label="food" data-balloon-pos="down">
+            <button
+              class="icons__icon"
+              aria-label="food"
+              data-balloon-pos="down"
+            >
               <i class="fa-solid fa-utensils fa-xl"></i>
             </button>
-            <button class="icon" aria-label="other" data-balloon-pos="right">
+            <button
+              class="icons__icon"
+              aria-label="other"
+              data-balloon-pos="right"
+            >
               <i class="fa-solid fa-coins fa-xl"></i>
             </button>
           </div>
-          <button class="btn btn-form depositBtn">Send</button>
+          <button class="btn btn__form btn__form--deposit">Send</button>
         </form>
       </section>
       <section class="close">
-        <h2>Close account</h2>
-        <form class="form close_form">
-          <input type="text" class="close-user" />
-          <label>User</label>
-          <input type="password" maxlength="4" class="close-pin" />
-          <label>PIN</label>
-          <button class="btn btn-form close-btn">Close</button>
+        <h2 class="user-panel__section-title">Close account</h2>
+        <form class="form close__form">
+          <input type="text" class="input form__close-user" />
+          <label class="form__label">User</label>
+          <input type="password" maxlength="4" class="input form__close-pin" />
+          <label class="form__label">PIN</label>
+          <button class="btn btn__form btn__form--close">Close</button>
         </form>
       </section>
-      <footer>
+      <footer class="footer">
         <div>
           <p>In:</p>
-          <p class="inMovements"></p>
+          <p class="footer__in"></p>
         </div>
         <div>
           <p>Out:</p>
-          <p class="outMovements"></p>
+          <p class="footer__out"></p>
         </div>
       </footer>
     </main>

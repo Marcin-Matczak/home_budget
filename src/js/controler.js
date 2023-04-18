@@ -90,11 +90,13 @@ const savedMovements = function (accounts) {
     account?.movements.forEach(function (mov) {
       const type = mov > 0 ? 'deposit' : 'withdrawal';
       const html = `
-        <tr>
-          <td><i class="fa-solid fa-coins fa-lg"></i></td>
-          <td class='descMov'>${select.balanceDate.textContent}</td>
-            <td class = 'moveType-${type}'>${type}</td>
-            <td>${currFormat(mov)}</td>
+        <tr class='table__tr'>
+          <td class='table__td'><i class="fa-solid fa-coins fa-lg"></i></td>
+          <td class='table__td table__td--descr'>${
+            select.balanceDate.textContent
+          }</td>
+            <td class='table__td table__td--type-${type}'>${type}</td>
+            <td class='table__td'>${currFormat(mov)}</td>
         </tr>`;
       account.movementsHTML.push(html);
     });
@@ -182,11 +184,13 @@ const depositMoney = function () {
     }
     const type = mov > 0 ? 'deposit' : 'withdrawal';
     const html = `
-    <tr>
-    <td>${movementsIcons.get(iconType)}</td>
-    <td class='descMov'>${select.balanceDate.textContent}</td>
-      <td class = 'moveType-${type}'>${type} - <span class='descMov'>${iconDescription}</span></td>
-      <td>${currFormat(mov)}</td>
+    <tr class='table__tr'>
+      <td class='table__td'>${movementsIcons.get(iconType)}</td>
+      <td class='table__td table__td--descr'>${
+        select.balanceDate.textContent
+      }</td>
+      <td class='table__td table__td--type-${type}'>${type} - <span class='table__td--descr'>${iconDescription}</span></td>
+      <td class='table__td'>${currFormat(mov)}</td>
     </tr>
   `;
     loggedUserAccount.movements.push(mov);
@@ -208,7 +212,7 @@ select.depositButton.addEventListener('click', function (event) {
 
 select.iconsWrapper.addEventListener('click', function (event) {
   event.preventDefault();
-  const clickedIcon = event.target.closest('.icon');
+  const clickedIcon = event.target.closest('.icons__icon');
   if (!clickedIcon) return;
   iconType = clickedIcon.getAttribute('aria-label');
 });

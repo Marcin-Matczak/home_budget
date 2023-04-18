@@ -17,6 +17,6 @@ export const setLocalStorage = function (data) {
 // Clear inputs
 
 export const clearInputsForm = function (form) {
-  const inputs = form.querySelectorAll('input');
+  const inputs = form.querySelectorAll('.input');
   inputs.forEach(input => (input.value = ''));
 };

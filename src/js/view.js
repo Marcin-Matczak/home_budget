@@ -108,19 +108,23 @@ export let transferType = {};
 
 export const renderTransfersType = function (amount, sender, reciver) {
   const deposithtml = `
-    <tr>
-    <td><i class="fa-solid fa-user fa-lg"></i></td>
-    <td class='descMov'>${select.balanceDate.textContent}</td>
-      <td class = 'moveType-deposit'>deposit - <span class='descMov'>${sender}</span></td>
-      <td>${currFormat(amount)}</td>
+    <tr class='table__tr'>
+      <td class='table__td'><i class="fa-solid fa-user fa-lg"></i></td>
+      <td class='table__td table__td--descr'>${
+        select.balanceDate.textContent
+      }</td>
+      <td class='table__td table__td--type-deposit'>deposit - <span class='table__td--descr'>${sender}</span></td>
+      <td class='table__td'>${currFormat(amount)}</td>
     </tr>
   `;
   const withdrawalhtml = `
-    <tr>
-    <td><i class="fa-solid fa-user fa-lg"></i></td>
-    <td class='descMov'>${select.balanceDate.textContent}</td>
-      <td class = 'moveType-withdrawal'>withdrawal - <span class='descMov'>${reciver}</span></td>
-      <td>${currFormat(-amount)}</td>
+    <tr class='table__tr'>
+      <td class='table__td'><i class="fa-solid fa-user fa-lg"></i></td>
+      <td class='table__td table__td--descr'>${
+        select.balanceDate.textContent
+      }</td>
+      <td class='table__td table__td--type-withdrawal'>withdrawal - <span class='table__td--descr'>${reciver}</span></td>
+      <td class='table__td'>${currFormat(-amount)}</td>
     </tr>
   `;
   transferType = {
