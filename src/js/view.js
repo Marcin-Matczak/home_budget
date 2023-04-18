@@ -1,4 +1,5 @@
 import { select, classNames, alerts } from './config.js';
+import { htmlCreator } from './helpers.js';
 
 // Toggle content visibility
 
@@ -107,29 +108,12 @@ export const renderMovements = function (account) {
 export let transferType = {};
 
 export const renderTransfersType = function (amount, sender, reciver) {
-  const deposithtml = `
-    <tr class='table__tr'>
-      <td class='table__td'><i class="fa-solid fa-user fa-lg"></i></td>
-      <td class='table__td table__td--descr'>${
-        select.balanceDate.textContent
-      }</td>
-      <td class='table__td table__td--type-deposit'>deposit - <span class='table__td--descr'>${sender}</span></td>
-      <td class='table__td'>${currFormat(amount)}</td>
-    </tr>
-  `;
-  const withdrawalhtml = `
-    <tr class='table__tr'>
-      <td class='table__td'><i class="fa-solid fa-user fa-lg"></i></td>
-      <td class='table__td table__td--descr'>${
-        select.balanceDate.textContent
-      }</td>
-      <td class='table__td table__td--type-withdrawal'>withdrawal - <span class='table__td--descr'>${reciver}</span></td>
-      <td class='table__td'>${currFormat(-amount)}</td>
-    </tr>
-  `;
+  const icon = '<i class="fa-solid fa-user fa-lg"></i>';
+  const deposit = 'deposit';
+  const withdrawal = 'withdrawal';
   transferType = {
-    deposithtml,
-    withdrawalhtml,
+    deposithtml: htmlCreator(icon, amount, deposit, sender),
+    withdrawalhtml: htmlCreator(icon, -amount, withdrawal, reciver),
   };
   return transferType;
 };

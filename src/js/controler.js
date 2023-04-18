@@ -13,6 +13,7 @@ import {
   updateUserPanelData,
   setLocalStorage,
   clearInputsForm,
+  htmlCreator,
 } from './helpers.js';
 
 // Info panel
@@ -88,17 +89,10 @@ const savedMovements = function (accounts) {
   accounts.forEach(function (account) {
     account.movementsHTML = [];
     account?.movements.forEach(function (mov) {
+      const coinIcon = '<i class="fa-solid fa-coins fa-lg"></i>';
+      const descr = 'sample transaction';
       const type = mov > 0 ? 'deposit' : 'withdrawal';
-      const html = `
-        <tr class='table__tr'>
-          <td class='table__td'><i class="fa-solid fa-coins fa-lg"></i></td>
-          <td class='table__td table__td--descr'>${
-            select.balanceDate.textContent
-          }</td>
-            <td class='table__td table__td--type-${type}'>${type}</td>
-            <td class='table__td'>${currFormat(mov)}</td>
-        </tr>`;
-      account.movementsHTML.push(html);
+      account.movementsHTML.push(htmlCreator(coinIcon, mov, type, descr));
     });
   });
 };
@@ -183,18 +177,12 @@ const depositMoney = function () {
       return;
     }
     const type = mov > 0 ? 'deposit' : 'withdrawal';
-    const html = `
-    <tr class='table__tr'>
-      <td class='table__td'>${movementsIcons.get(iconType)}</td>
-      <td class='table__td table__td--descr'>${
-        select.balanceDate.textContent
-      }</td>
-      <td class='table__td table__td--type-${type}'>${type} - <span class='table__td--descr'>${iconDescription}</span></td>
-      <td class='table__td'>${currFormat(mov)}</td>
-    </tr>
-  `;
+    const icon = movementsIcons.get(iconType);
+
     loggedUserAccount.movements.push(mov);
-    loggedUserAccount.movementsHTML.push(html);
+    loggedUserAccount.movementsHTML.push(
+      htmlCreator(icon, mov, type, iconDescription)
+    );
     updateUserPanelData(loggedUserAccount);
     clearInputsForm(select.depositForm);
   } else {
