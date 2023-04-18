@@ -20,7 +20,7 @@ export const toggleVisibility = function () {
 
 export const logOut = function () {
   toggleVisibility();
-  select.loginButtonDescription.textContent = 'In';
+  select.logoutButton.textContent = 'In';
   select.welcomeInfo.textContent = 'Please Log In';
   select.inputUserNameLogin.disabled =
     select.inputPasswordLogin.disabled = false;

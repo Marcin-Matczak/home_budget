@@ -1,0 +1,16 @@
+{
+  "name": "home_budget",
+  "version": "1.0.0",
+  "description": "home_budget application",
+  "default": "index.html",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "author": "Marcin Matczak",
+  "license": "ISC",
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.8.3",
+    "parcel": "^2.8.3"
+  }
+}

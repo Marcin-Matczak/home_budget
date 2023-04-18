@@ -108,7 +108,7 @@ const welcomePanel = function () {
     }!`;
     clearInputsForm(select.loginForm);
     select.inputPasswordLogin.blur();
-    select.loginButtonDescription.textContent = 'Out';
+    select.logoutButton.textContent = 'Out';
     select.inputUserNameLogin.disabled =
       select.inputPasswordLogin.disabled = true;
   } else {
