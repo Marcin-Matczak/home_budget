@@ -1,0 +1,35 @@
+/* Variables */
+
+$color-main: #212121;
+$color-info: #79acff;
+$font-red: #890000;
+$font-green: #236023;
+$center-content: translate(-50%,-50%);
+$blur-effect: blur(8px);
+$radius: 10px;
+$circle: 50%;
+
+/* Mixins */
+
+@mixin center($top: 50%){
+  position: absolute;
+  left: 50%;
+  top: $top;
+  transform: translate(-50%, -50%);
+}
+
+/* Global */
+
+* {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: rgb(246, 246, 246);
+  color: $color-main;
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.2;
+  overflow: hidden;
+}

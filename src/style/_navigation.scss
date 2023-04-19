@@ -1,0 +1,23 @@
+/* Navigation */
+
+.navigation {
+  align-items: center;
+  backdrop-filter: $blur-effect;
+  background-color: rgb(111, 95, 144, 0.8);
+  display: flex;
+  height: 50px;
+
+  &__welcome {
+    flex-grow: 1;
+    padding: 0 20px;
+  }
+
+  &__login {
+    display: flex;
+    padding: 0 20px;
+
+    & > * {
+      margin-left: 8px;
+    }
+  }
+}
