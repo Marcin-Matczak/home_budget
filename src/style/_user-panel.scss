@@ -20,6 +20,20 @@
   &__section-title{
     margin-bottom: 14px;
   }
+
+  @media only screen and (max-width: $sw-medium) {
+    grid-template-columns: repeat(6, 155px);
+    padding: 14px;
+    @include center($top: 53%);
+  }
+
+  @media only screen and (max-width: $sw-small) {
+    font-size: 14px;
+    grid-template-columns: repeat(6, 150px);
+    grid-template-rows: repeat(7, 70px); 
+    padding: 16px;
+    @include center($top: 53%);
+  }
 }
 
 /* User panel - header */

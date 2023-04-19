@@ -7,3 +7,11 @@
 .hidden {
   display: none;
 }
+
+.copyright{
+  color: $color-main;
+  position: absolute;
+  bottom: 2%;
+  right: 2%;
+  font-size: 0.7em;
+}

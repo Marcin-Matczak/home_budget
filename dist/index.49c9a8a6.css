@@ -69,6 +69,20 @@ body {
   box-shadow: 0 8px 24px #0006;
 }
 
+@media only screen and (max-width: 1600px) {
+  .btn__form {
+    top: 80px;
+    right: 0;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .btn__form {
+    top: 67px;
+    right: -3px;
+  }
+}
+
 .input {
   cursor: text;
   height: 19px;
@@ -122,6 +136,13 @@ body {
 
 .icons__icon:focus:first-child {
   background-color: #236023;
+}
+
+@media only screen and (max-width: 1024px) {
+  .icons {
+    gap: 3px;
+    margin-top: 10px;
+  }
 }
 
 .navigation {
@@ -202,6 +223,25 @@ body {
   transform: translateX(50%);
 }
 
+@media only screen and (max-width: 1600px) {
+  .info {
+    position: absolute;
+    top: 53%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .info {
+    font-size: 14px;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
 .user-panel {
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
@@ -226,6 +266,30 @@ body {
 
 .user-panel__section-title {
   margin-bottom: 14px;
+}
+
+@media only screen and (max-width: 1600px) {
+  .user-panel {
+    grid-template-columns: repeat(6, 155px);
+    padding: 14px;
+    position: absolute;
+    top: 53%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .user-panel {
+    grid-template-rows: repeat(7, 70px);
+    grid-template-columns: repeat(6, 150px);
+    padding: 16px;
+    font-size: 14px;
+    position: absolute;
+    top: 53%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 
 .header {
@@ -372,6 +436,14 @@ body {
 
 .hidden {
   display: none;
+}
+
+.copyright {
+  color: #212121;
+  font-size: .7em;
+  position: absolute;
+  bottom: 2%;
+  right: 2%;
 }
 
 .bg {

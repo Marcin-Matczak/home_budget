@@ -45,4 +45,13 @@
     transform: translateX(50%);
     width: 450px;
   }
+
+  @media only screen and (max-width: $sw-medium) {
+    @include center($top: 53%);
+  }
+
+  @media only screen and (max-width: $sw-small) {
+    font-size: 14px;
+    @include center($top: 55%);
+  }
 }
