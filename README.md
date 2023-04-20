@@ -23,5 +23,8 @@ User panel:
 Check the app:
 
 - Use npm start or visit website below
+! Application designed for desktop, laptop and bigger tablet users !
+
+
 
 ---  https://home-finance-app.netlify.app/  ---
