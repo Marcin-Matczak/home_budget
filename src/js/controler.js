@@ -16,6 +16,8 @@ import {
   htmlCreator,
 } from './helpers.js';
 
+import 'core-js/stable';
+
 // Info panel
 
 select.closeInfoButton.addEventListener('click', function (event) {
